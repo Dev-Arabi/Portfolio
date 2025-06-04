@@ -228,11 +228,12 @@ export default function ContactPage() {
                       <span className="font-medium">Available for new projects</span>
                     </div>
                     <p className="text-slate-300 text-sm">
-                      I'm currently accepting new projects and collaborations. Let's discuss your requirements!
+                      I&apos;m currently accepting new projects and collaborations. Let&apos;s discuss your
+                      requirements!
                     </p>
                   </div>
                 </CardContent>
-              </Card> 
+              </Card>
 
               {/* Availability Status No 
               <Card className="hover:shadow-xl transition-shadow bg-slate-800 border-slate-700">
@@ -273,9 +274,9 @@ export default function ContactPage() {
             <div className="lg:col-span-2">
               <Card className="hover:shadow-xl transition-shadow bg-slate-800 border-slate-700">
                 <CardHeader>
-                  <CardTitle className="text-2xl text-slate-100">Let's Start a Conversation</CardTitle>
+                  <CardTitle className="text-2xl text-slate-100">Let&apos;s Start a Conversation</CardTitle>
                   <CardDescription className="text-slate-400">
-                    Fill out the form below with your project details and I'll get back to you soon.
+                    Fill out the form below with your project details and I&apos;ll get back to you soon.
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -448,7 +449,7 @@ export default function ContactPage() {
                             <SelectItem value="discuss" className="hover:bg-slate-700 text-slate-100">
                               <div className="flex items-center gap-2">
                                 <MessageCircle className="h-4 w-4 text-blue-400" />
-                                <span>Let's Discuss</span>
+                                <span>Let&apos;s Discuss</span>
                               </div>
                             </SelectItem>
                           </SelectContent>
@@ -568,8 +569,7 @@ export default function ContactPage() {
                 <CardContent className="pt-6">
                   <h3 className="font-semibold text-slate-100 mb-2">What's your typical project timeline?</h3>
                   <p className="text-slate-300 text-sm">
-                    Project timelines vary based on complexity, but most projects range from 2-12 weeks. I'll provide a
-                    detailed timeline during our consultation.
+                    Let&apos;s discuss your requirements and create something amazing together.
                   </p>
                 </CardContent>
               </Card>

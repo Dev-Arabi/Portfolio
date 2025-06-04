@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Mail, ArrowRight, Code, Server, Network, Sparkles, Zap, Database } from "lucide-react"
 import Link from "next/link"
@@ -14,8 +14,6 @@ export default function HomePage() {
   const buttonsRef = useRef<HTMLDivElement>(null)
   const cardsRef = useRef<HTMLDivElement>(null)
   const floatingElementsRef = useRef<HTMLDivElement>(null)
-  const cursorRef = useRef<HTMLDivElement>(null)
-  const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
     // Dynamic import of GSAP to avoid SSR issues
@@ -59,9 +57,7 @@ export default function HomePage() {
         })
 
         // Create enhanced main timeline with proper sequencing
-        const tl = gsap.timeline({
-          onComplete: () => setIsLoaded(true),
-        })
+        const tl = gsap.timeline()
 
         // STEP 1: Show title container first
         tl.to(
@@ -212,7 +208,7 @@ export default function HomePage() {
 
         // Enhanced hover animations for cards with magnetic effect
         const cards = document.querySelectorAll(".nav-card")
-        cards.forEach((card, index) => {
+        cards.forEach((card) => {
           const icon = card.querySelector(".card-icon")
           const content = card.querySelector(".card-content")
           const overlay = card.querySelector(".card-overlay")

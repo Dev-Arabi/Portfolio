@@ -207,7 +207,7 @@ export default function TestimonialsPage() {
                 <div className="text-center">
                   <Quote className="h-12 w-12 text-blue-400 mx-auto mb-6" />
                   <blockquote className="text-2xl font-medium text-slate-100 mb-6 italic">
-                    "Amazing coding skills! Delivered my project on time with outstanding quality."
+                    &quot;Amazing coding skills! Delivered my project on time with outstanding quality.&quot;
                   </blockquote>
                   <div className="flex items-center justify-center gap-4">
                     <Image
@@ -263,7 +263,7 @@ export default function TestimonialsPage() {
                     </span>
                   </div>
                   <blockquote className="text-slate-300 border-l-4 border-blue-500 pl-4 py-1">
-                    "{testimonial.content}"
+                    &quot;{testimonial.content}&quot;
                   </blockquote>
                 </CardContent>
               </Card>
@@ -292,8 +292,8 @@ export default function TestimonialsPage() {
           <div className="text-center">
             <h2 className="text-3xl font-bold text-slate-100 mb-6">Ready to Work Together?</h2>
             <p className="text-slate-300 mb-8 max-w-2xl mx-auto">
-              Join my satisfied clients and let's create something amazing together. I'm committed to delivering
-              exceptional results for every project.
+              Join my satisfied clients and let&apos;s create something amazing together. I&apos;m committed to
+              delivering exceptional results for every project.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/contact">

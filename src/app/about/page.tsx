@@ -247,7 +247,7 @@ export default function AboutPage() {
               <div ref={contentRef} className="space-y-4 order-1 md:order-2">
                 <h2 className="text-2xl md:text-3xl font-bold text-slate-100">Hello, I'm a Full Stack Developer</h2>
                 <p className="text-slate-300 leading-relaxed">
-                  I'm a dedicated Computer Science student with hands-on experience in backend development, network
+                  I&apos;m a dedicated Computer Science student with hands-on experience in backend development, network
                   engineering, and server management. I combine academic knowledge with real-world expertise to deliver
                   high-quality solutions.
                 </p>

@@ -330,7 +330,7 @@ export default function ServicesPage() {
           <div className="mt-16 text-center bg-slate-800 p-8 rounded-lg shadow-lg max-w-2xl mx-auto border border-slate-700">
             <h2 className="text-2xl font-bold text-slate-100 mb-4">Ready to Start Your Project?</h2>
             <p className="text-slate-300 mb-6">
-              Let's discuss your requirements and create something amazing together.
+              Let&apos;s discuss your requirements and create something amazing together.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/contact">
