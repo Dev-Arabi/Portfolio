@@ -58,8 +58,8 @@ function Navigation() {
       {/* Main Navigation Bar with Enhanced Blur and Transparency */}
       <nav
         className={cn(
-          "shadow-2xl px-4 md:px-6 py-3 w-full max-w-7xl transition-all duration-500 ease-in-out",
-          // Enhanced blur and transparency effects
+          "shadow-2xl px-4 md:px-6 py-3 w-full max-w-7xl transition-all duration-500 ease-in-out relative overflow-hidden",
+          // Enhanced blur and transparency effects with proper rounded corners
           isMounted && isScrolled
             ? "bg-slate-900/70 backdrop-blur-3xl border border-slate-600/40 shadow-2xl rounded-none md:rounded-b-2xl backdrop-saturate-150"
             : "bg-slate-900/60 backdrop-blur-2xl border border-slate-700/30 shadow-xl rounded-2xl backdrop-saturate-125",
@@ -73,13 +73,13 @@ function Navigation() {
               : "blur(16px) saturate(125%) brightness(105%)",
         }}
       >
-        {/* Subtle gradient overlay for extra depth */}
+        {/* Subtle gradient overlay for extra depth - Fixed rounded corners */}
         <div
           className={cn(
-            "absolute inset-0 rounded-inherit transition-opacity duration-500",
+            "absolute inset-0 transition-opacity duration-500",
             isMounted && isScrolled
-              ? "bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-pink-500/5 opacity-100"
-              : "bg-gradient-to-r from-blue-500/3 via-purple-500/3 to-pink-500/3 opacity-70",
+              ? "bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-pink-500/5 opacity-100 rounded-none md:rounded-b-2xl"
+              : "bg-gradient-to-r from-blue-500/3 via-purple-500/3 to-pink-500/3 opacity-70 rounded-2xl",
           )}
         />
 
@@ -137,12 +137,15 @@ function Navigation() {
       {isOpen && (
         <div
           className={cn(
-            "absolute top-full mt-3 w-11/12 max-w-sm rounded-2xl shadow-2xl p-4 lg:hidden animate-in slide-in-from-top-2 duration-300",
+            "absolute top-full mt-3 w-11/12 max-w-sm rounded-2xl shadow-2xl p-4 lg:hidden animate-in slide-in-from-top-2 duration-300 overflow-hidden",
             "backdrop-blur-3xl",
             "bg-slate-900/80 border border-slate-700/50",
           )}
         >
-          <div className="flex flex-col space-y-1">
+          {/* Gradient overlay for mobile dropdown */}
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-500/3 via-purple-500/3 to-pink-500/3 opacity-70 rounded-2xl" />
+
+          <div className="flex flex-col space-y-1 relative z-10">
             {navItems.map((item) => (
               <Link
                 key={item.href}
