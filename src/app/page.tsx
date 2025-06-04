@@ -412,8 +412,8 @@ export default function HomePage() {
 
   // Helper function to split text into words for animation
   const splitTextIntoWords = (text: string) => {
-    return text.split(" ").map((word, index) => (
-      <span key={index} className="subtitle-word inline-block mr-1">
+    return text.split(" ").map((word, wordIndex) => (
+      <span key={wordIndex} className="subtitle-word inline-block mr-1">
         {word}
       </span>
     ))
