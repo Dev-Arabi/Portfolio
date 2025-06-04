@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
@@ -8,8 +8,10 @@ import { Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useTypewriter } from "@/hooks/use-typewriter"
 
-export default function Navigation() {
+function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
   const pathname = usePathname()
   const typewriterText = useTypewriter({
     text: "Saif Arabi",
@@ -29,21 +31,69 @@ export default function Navigation() {
     { href: "/contact", label: "Contact" },
   ]
 
+  // Handle mounting and scroll effect
+  useEffect(() => {
+    setIsMounted(true)
+
+    const handleScroll = () => {
+      const scrollTop = window.scrollY
+      const shouldBeScrolled = scrollTop > 20
+      setIsScrolled(shouldBeScrolled)
+    }
+
+    // Set initial scroll state
+    handleScroll()
+
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
   return (
-    <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full flex justify-center px-4">
-      {/* Main Navigation Bar */}
-      <nav className="bg-slate-900/90 backdrop-blur-xl border border-slate-700/50 rounded-xl shadow-2xl px-4 md:px-6 py-3 w-full max-w-7xl">
-        <div className="flex items-center justify-between w-full">
+    <div
+      className={cn(
+        "fixed left-0 right-0 z-50 flex justify-center px-4 transition-all duration-500 ease-in-out",
+        isMounted && isScrolled ? "top-0" : "top-6",
+      )}
+    >
+      {/* Main Navigation Bar with Enhanced Blur and Transparency */}
+      <nav
+        className={cn(
+          "shadow-2xl px-4 md:px-6 py-3 w-full max-w-7xl transition-all duration-500 ease-in-out",
+          // Enhanced blur and transparency effects
+          isMounted && isScrolled
+            ? "bg-slate-900/70 backdrop-blur-3xl border border-slate-600/40 shadow-2xl rounded-none md:rounded-b-2xl backdrop-saturate-150"
+            : "bg-slate-900/60 backdrop-blur-2xl border border-slate-700/30 shadow-xl rounded-2xl backdrop-saturate-125",
+          // Additional glass morphism effects
+          "backdrop-brightness-110 supports-[backdrop-filter]:bg-slate-900/50",
+        )}
+        style={{
+          backdropFilter:
+            isMounted && isScrolled
+              ? "blur(24px) saturate(150%) brightness(110%)"
+              : "blur(16px) saturate(125%) brightness(105%)",
+        }}
+      >
+        {/* Subtle gradient overlay for extra depth */}
+        <div
+          className={cn(
+            "absolute inset-0 rounded-inherit transition-opacity duration-500",
+            isMounted && isScrolled
+              ? "bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-pink-500/5 opacity-100"
+              : "bg-gradient-to-r from-blue-500/3 via-purple-500/3 to-pink-500/3 opacity-70",
+          )}
+        />
+
+        <div className="flex items-center justify-between w-full relative z-10">
           <div className="flex items-center gap-3">
-            {/* Stylized First Letter with Custom Spin-Pause Animation */}
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center shadow-lg animate-spin-pause">
-              <span className="text-white font-bold text-lg">S</span>
+            {/* Stylized First Letter with Enhanced Glass Effect */}
+            <div className="w-10 h-10 bg-gradient-to-br from-blue-500/80 to-purple-600/80 backdrop-blur-sm rounded-lg flex items-center justify-center shadow-lg animate-spin-pause border border-white/10">
+              <span className="text-white font-bold text-lg drop-shadow-sm">S</span>
             </div>
 
-            {/* Portfolio Text */}
+            {/* Portfolio Text with Enhanced Contrast */}
             <Link
               href="/"
-              className="text-xl font-bold text-white hover:text-blue-400 transition-colors duration-300 whitespace-nowrap flex items-center"
+              className="text-xl font-bold text-white hover:text-blue-400 transition-colors duration-300 whitespace-nowrap flex items-center drop-shadow-sm"
             >
               <span className="min-w-[120px]">
                 {typewriterText}
@@ -52,30 +102,29 @@ export default function Navigation() {
             </Link>
           </div>
 
-          {/* Desktop Menu - Right Aligned with subtle hover effects */}
+          {/* Desktop Menu - SIMPLIFIED for visibility */}
           <div className="hidden lg:flex items-center">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "relative transition-all duration-300 rounded-lg text-sm font-medium whitespace-nowrap px-3 py-2",
-                  "text-slate-300 hover:text-white",
-                  "before:absolute before:inset-0 before:bg-slate-800/50 before:rounded-lg before:opacity-0 before:transition-opacity before:duration-300",
-                  "hover:before:opacity-100",
-                  pathname === item.href && "text-white bg-slate-800/70",
+                  "px-3 py-2 mx-1 rounded-lg text-sm font-medium transition-colors duration-300",
+                  pathname === item.href
+                    ? "bg-slate-800 text-white shadow-md"
+                    : "text-white hover:bg-slate-800/70 hover:text-white",
                 )}
               >
-                <span className="relative z-10">{item.label}</span>
+                {item.label}
               </Link>
             ))}
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button - SIMPLIFIED */}
           <Button
             variant="ghost"
             size="icon"
-            className="lg:hidden text-slate-300 hover:text-white hover:bg-slate-800/50 rounded-lg transition-all duration-300"
+            className="lg:hidden text-white hover:bg-slate-800/70 rounded-lg transition-colors duration-300"
             aria-label="Toggle menu"
             onClick={() => setIsOpen(!isOpen)}
           >
@@ -84,18 +133,25 @@ export default function Navigation() {
         </div>
       </nav>
 
-      {/* Mobile Dropdown with smooth animation */}
+      {/* Mobile Dropdown - SIMPLIFIED for visibility */}
       {isOpen && (
-        <div className="absolute top-full mt-3 w-11/12 max-w-sm bg-slate-900/90 backdrop-blur-xl border border-slate-700/50 rounded-xl shadow-2xl p-4 lg:hidden animate-in slide-in-from-top-2 duration-300">
+        <div
+          className={cn(
+            "absolute top-full mt-3 w-11/12 max-w-sm rounded-2xl shadow-2xl p-4 lg:hidden animate-in slide-in-from-top-2 duration-300",
+            "backdrop-blur-3xl",
+            "bg-slate-900/80 border border-slate-700/50",
+          )}
+        >
           <div className="flex flex-col space-y-1">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "transition-all duration-300 rounded-lg text-sm font-medium whitespace-nowrap px-4 py-3",
-                  "text-slate-300 hover:text-white hover:bg-slate-800/50",
-                  pathname === item.href && "text-white bg-slate-800/70",
+                  "px-4 py-3 rounded-lg text-sm font-medium transition-colors duration-300",
+                  pathname === item.href
+                    ? "bg-slate-800 text-white shadow-md"
+                    : "text-white hover:bg-slate-800/70 hover:text-white",
                 )}
                 onClick={() => setIsOpen(false)}
               >
@@ -108,3 +164,6 @@ export default function Navigation() {
     </div>
   )
 }
+
+export default Navigation
+export { Navigation }

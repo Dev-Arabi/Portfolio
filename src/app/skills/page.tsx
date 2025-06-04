@@ -102,6 +102,28 @@ export default function SkillsPage() {
 
         window.addEventListener("mousemove", handleWindowMouseMove)
 
+        // Hover animations for continuous learning cards
+        const learningCards = document.querySelectorAll(".learning-card")
+        learningCards.forEach((card) => {
+          card.addEventListener("mouseenter", () => {
+            gsap.to(card, {
+              scale: 1.05,
+              y: -5,
+              duration: 0.3,
+              ease: "power2.out",
+            })
+          })
+
+          card.addEventListener("mouseleave", () => {
+            gsap.to(card, {
+              scale: 1,
+              y: 0,
+              duration: 0.3,
+              ease: "power2.out",
+            })
+          })
+        })
+
         return () => {
           window.removeEventListener("mousemove", handleWindowMouseMove)
         }
@@ -274,7 +296,7 @@ export default function SkillsPage() {
           <div className="mt-16 max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold text-slate-100 mb-8 text-center">Continuous Learning</h2>
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-slate-800 p-6 rounded-lg shadow-lg border border-slate-700">
+              <div className="learning-card bg-slate-800 p-6 rounded-lg shadow-lg border border-slate-700">
                 <h3 className="text-xl font-semibold text-slate-100 mb-4">Currently Learning</h3>
                 <ul className="space-y-2 text-slate-300">
                   <li>• Advanced React Patterns</li>
@@ -284,7 +306,7 @@ export default function SkillsPage() {
                   <li>• Advanced Database Optimization</li>
                 </ul>
               </div>
-              <div className="bg-slate-800 p-6 rounded-lg shadow-lg border border-slate-700">
+              <div className="learning-card bg-slate-800 p-6 rounded-lg shadow-lg border border-slate-700">
                 <h3 className="text-xl font-semibold text-slate-100 mb-4">Professional Goals</h3>
                 <ul className="space-y-2 text-slate-300">
                   <li>• Full Stack Architecture Mastery</li>

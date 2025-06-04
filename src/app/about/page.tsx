@@ -3,7 +3,8 @@
 import { useEffect, useRef } from "react"
 import Header from "@/components/header"
 import Image from "next/image"
-import { Heart, Smile, ThumbsUp, Crown, Zap, Shield, Star, Target, Coffee } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Heart, Smile, ThumbsUp, Crown, Zap, Shield, Star, Target, Coffee, Download } from "lucide-react"
 
 export default function AboutPage() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -24,11 +25,25 @@ export default function AboutPage() {
         })
 
         // Set initial states for content
-        gsap.set([imageRef.current, contentRef.current, statsRef.current], {
+        gsap.set([imageRef.current, contentRef.current], {
           opacity: 0,
           y: 30,
           rotationX: 10,
           transformPerspective: 1000,
+        })
+
+        // Set initial states for stats section and individual cards
+        gsap.set(statsRef.current, {
+          opacity: 0,
+          y: 30,
+          rotationX: 10,
+          transformPerspective: 1000,
+        })
+
+        gsap.set(".stat-card", {
+          opacity: 0,
+          y: 20,
+          scale: 0.9,
         })
 
         // Create timeline for content animation
@@ -52,12 +67,25 @@ export default function AboutPage() {
             },
             "-=0.7",
           )
+          // Animate stats container first
+          .to(
+            statsRef.current,
+            {
+              opacity: 1,
+              y: 0,
+              rotationX: 0,
+              duration: 0.8,
+              ease: "power3.out",
+            },
+            "-=0.3",
+          )
+          // Then animate individual stat cards
           .to(
             ".stat-card",
             {
               opacity: 1,
               y: 0,
-              rotationX: 0,
+              scale: 1,
               duration: 0.8,
               stagger: 0.2,
               ease: "back.out(1.4)",
@@ -147,7 +175,7 @@ export default function AboutPage() {
 
         window.addEventListener("mousemove", handleWindowMouseMove)
 
-        // Hover animations for stat cards
+        // Hover animations for stat cards and CV button
         const statCards = document.querySelectorAll(".stat-card")
         statCards.forEach((card) => {
           card.addEventListener("mouseenter", () => {
@@ -169,6 +197,28 @@ export default function AboutPage() {
           })
         })
 
+        // CV button hover animation
+        const cvButton = document.querySelector(".cv-button")
+        if (cvButton) {
+          cvButton.addEventListener("mouseenter", () => {
+            gsap.to(cvButton, {
+              scale: 1.05,
+              y: -2,
+              duration: 0.3,
+              ease: "power2.out",
+            })
+          })
+
+          cvButton.addEventListener("mouseleave", () => {
+            gsap.to(cvButton, {
+              scale: 1,
+              y: 0,
+              duration: 0.3,
+              ease: "power2.out",
+            })
+          })
+        }
+
         return () => {
           window.removeEventListener("mousemove", handleWindowMouseMove)
         }
@@ -179,6 +229,16 @@ export default function AboutPage() {
 
     loadGSAP()
   }, [])
+
+  const handleDownloadCV = () => {
+    // Create a link element and trigger download
+    const link = document.createElement("a")
+    link.href = "/cv/Saif_Arabi_CV.pdf" // Path to your CV file in the public folder
+    link.download = "Saif_Arabi_CV.pdf" // Name for the downloaded file
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
 
   return (
     <div
@@ -230,7 +290,8 @@ export default function AboutPage() {
 
           <div className="max-w-5xl mx-auto">
             <div className="grid md:grid-cols-2 gap-8 items-center mb-8">
-              <div ref={imageRef} className="order-2 md:order-1">
+              {/* Image Section - Now appears first on mobile */}
+              <div ref={imageRef} className="order-1 md:order-1">
                 {/* Replace the div with an actual image */}
                 <div className="relative w-48 h-48 md:w-64 md:h-64 mx-auto overflow-hidden rounded-full border-4 border-blue-500 shadow-2xl">
                   <Image
@@ -244,7 +305,8 @@ export default function AboutPage() {
                 </div>
               </div>
 
-              <div ref={contentRef} className="space-y-4 order-1 md:order-2">
+              {/* Content Section - Now appears second on mobile */}
+              <div ref={contentRef} className="space-y-4 order-2 md:order-2">
                 <h2 className="text-2xl md:text-3xl font-bold text-slate-100">Hello, I'm a Full Stack Developer</h2>
                 <p className="text-slate-300 leading-relaxed">
                   I'm a dedicated Computer Science student with hands-on experience in backend development, network
@@ -256,20 +318,32 @@ export default function AboutPage() {
                   have been working professionally since 2021, gaining valuable experience in various aspects of
                   software development and network infrastructure.
                 </p>
+
+                {/* CV Download Button */}
+                <div className="pt-4">
+                  <Button
+                    onClick={handleDownloadCV}
+                    className="cv-button bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-300"
+                    size="lg"
+                  >
+                    <Download className="mr-2 h-4 w-4" />
+                    Curriculum vitae
+                  </Button>
+                </div>
               </div>
             </div>
 
             {/* Stats Section */}
             <div ref={statsRef} className="grid grid-cols-3 gap-4 max-w-2xl mx-auto">
-              <div className="stat-card text-center p-4 bg-slate-800/70 rounded-lg shadow-lg border border-slate-700 opacity-0">
+              <div className="stat-card text-center p-4 bg-slate-800/70 rounded-lg shadow-lg border border-slate-700">
                 <div className="text-2xl md:text-3xl font-bold text-blue-400 mb-1">3+</div>
                 <div className="text-sm text-slate-400">Years Experience</div>
               </div>
-              <div className="stat-card text-center p-4 bg-slate-800/70 rounded-lg shadow-lg border border-slate-700 opacity-0">
+              <div className="stat-card text-center p-4 bg-slate-800/70 rounded-lg shadow-lg border border-slate-700">
                 <div className="text-2xl md:text-3xl font-bold text-green-400 mb-1">50+</div>
                 <div className="text-sm text-slate-400">Projects Completed</div>
               </div>
-              <div className="stat-card text-center p-4 bg-slate-800/70 rounded-lg shadow-lg border border-slate-700 opacity-0">
+              <div className="stat-card text-center p-4 bg-slate-800/70 rounded-lg shadow-lg border border-slate-700">
                 <div className="text-2xl md:text-3xl font-bold text-purple-400 mb-1">100%</div>
                 <div className="text-sm text-slate-400">Client Satisfaction</div>
               </div>

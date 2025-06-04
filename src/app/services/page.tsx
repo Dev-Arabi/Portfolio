@@ -104,6 +104,28 @@ export default function ServicesPage() {
 
         window.addEventListener("mousemove", handleWindowMouseMove)
 
+        // Hover animations for "Why Choose Me?" section cards
+        const whyChooseMeCards = document.querySelectorAll(".why-choose-me-card")
+        whyChooseMeCards.forEach((card) => {
+          card.addEventListener("mouseenter", () => {
+            gsap.to(card, {
+              scale: 1.05,
+              y: -5,
+              duration: 0.3,
+              ease: "power2.out",
+            })
+          })
+
+          card.addEventListener("mouseleave", () => {
+            gsap.to(card, {
+              scale: 1,
+              y: 0,
+              duration: 0.3,
+              ease: "power2.out",
+            })
+          })
+        })
+
         return () => {
           window.removeEventListener("mousemove", handleWindowMouseMove)
         }
@@ -305,7 +327,7 @@ export default function ServicesPage() {
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold text-slate-100 mb-8 text-center">Why Choose Me?</h2>
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-slate-800 p-6 rounded-lg shadow-lg border border-slate-700">
+              <div className="why-choose-me-card bg-slate-800 p-6 rounded-lg shadow-lg border border-slate-700">
                 <h3 className="text-xl font-semibold text-slate-100 mb-4">Professional Excellence</h3>
                 <ul className="space-y-2 text-slate-300">
                   <li>• 3+ years of professional experience</li>
@@ -314,7 +336,7 @@ export default function ServicesPage() {
                   <li>• Continuous learning and skill development</li>
                 </ul>
               </div>
-              <div className="bg-slate-800 p-6 rounded-lg shadow-lg border border-slate-700">
+              <div className="why-choose-me-card bg-slate-800 p-6 rounded-lg shadow-lg border border-slate-700">
                 <h3 className="text-xl font-semibold text-slate-100 mb-4">Service Commitment</h3>
                 <ul className="space-y-2 text-slate-300">
                   <li>• Clear communication throughout the project</li>

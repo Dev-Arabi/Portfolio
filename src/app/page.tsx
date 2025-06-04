@@ -77,10 +77,10 @@ export default function HomePage() {
           ".gradient-text",
           {
             text: "Full Stack Developer & Network Engineer",
-            duration: 3.5,
+            duration: 2, // Changed from 3.5 to 2
             ease: "none",
           },
-          "+=0.5",
+          "+=0.3", // Changed from "+=0.5" to "+=0.3"
         )
 
         // STEP 3: After title is complete, animate subtitle with word-by-word effect
@@ -93,7 +93,7 @@ export default function HomePage() {
             duration: 0.8,
             ease: "power3.out",
           },
-          "+=0.3",
+          "+=0.1", // Changed from "+=0.3" to "+=0.1"
         ).to(
           ".subtitle-word",
           {
@@ -102,7 +102,7 @@ export default function HomePage() {
             rotationX: 0,
             duration: 0.6,
             stagger: {
-              amount: 1.5,
+              amount: 0.8, // Changed from 1.5 to 0.8
               from: "start",
               ease: "power2.out",
             },
@@ -134,7 +134,7 @@ export default function HomePage() {
             rotationY: 0,
             duration: 0.8,
             stagger: {
-              amount: 0.6,
+              amount: 0.4, // Changed from 0.6 to 0.4
               from: "center",
               ease: "power2.out",
             },
@@ -152,13 +152,13 @@ export default function HomePage() {
             rotation: 0,
             duration: 1.2,
             stagger: {
-              amount: 1,
+              amount: 0.6, // Changed from 1 to 0.6
               from: "random",
               ease: "power2.out",
             },
             ease: "elastic.out(1, 0.3)",
           },
-          "-=1.0",
+          "-=0.8", // Changed from "-=1.0" to "-=0.8"
         )
 
         // Continuous floating animations (start after everything is loaded)
@@ -200,7 +200,7 @@ export default function HomePage() {
         // Cursor blink animation (starts immediately)
         gsap.to(".cursor-blink", {
           opacity: 0,
-          duration: 0.5,
+          duration: 0.3, // Changed from 0.5 to 0.3
           repeat: -1,
           yoyo: true,
           ease: "power2.inOut",
@@ -422,68 +422,82 @@ export default function HomePage() {
   return (
     <div
       ref={containerRef}
-      className="h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col overflow-hidden relative"
+      className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col overflow-hidden relative"
       style={{ perspective: "1000px" }}
     >
-      {/* Enhanced Floating Background Elements */}
+      {/* Enhanced Floating Background Elements - Mobile Optimized */}
       <div ref={floatingElementsRef} className="absolute inset-0 pointer-events-none">
-        {/* Gradient orbs with enhanced blur */}
-        <div className="floating-element floating-1 absolute top-20 left-10 w-24 h-24 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-full blur-2xl"></div>
-        <div className="floating-element floating-2 absolute top-40 right-20 w-36 h-36 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full blur-2xl"></div>
-        <div className="floating-element floating-3 absolute bottom-40 left-1/4 w-28 h-28 bg-gradient-to-r from-green-500/20 to-emerald-500/20 rounded-full blur-2xl"></div>
-        <div className="floating-element floating-1 absolute bottom-20 right-10 w-32 h-32 bg-gradient-to-r from-orange-500/20 to-red-500/20 rounded-full blur-2xl"></div>
+        {/* Gradient orbs with enhanced blur - Smaller on mobile */}
+        <div className="floating-element floating-1 absolute top-16 left-4 md:top-20 md:left-10 w-16 h-16 md:w-24 md:h-24 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-full blur-xl md:blur-2xl"></div>
+        <div className="floating-element floating-2 absolute top-32 right-8 md:top-40 md:right-20 w-20 h-20 md:w-36 md:h-36 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full blur-xl md:blur-2xl"></div>
+        <div className="floating-element floating-3 absolute bottom-32 left-1/4 md:bottom-40 w-18 h-18 md:w-28 md:h-28 bg-gradient-to-r from-green-500/20 to-emerald-500/20 rounded-full blur-xl md:blur-2xl"></div>
+        <div className="floating-element floating-1 absolute bottom-16 right-4 md:bottom-20 md:right-10 w-20 h-20 md:w-32 md:h-32 bg-gradient-to-r from-orange-500/20 to-red-500/20 rounded-full blur-xl md:blur-2xl"></div>
 
-        {/* Enhanced geometric shapes with glow */}
-        <div className="floating-element floating-2 absolute top-1/3 left-20 p-3 bg-blue-500/10 rounded-lg backdrop-blur-sm">
-          <Code className="w-8 h-8 text-blue-400/60 drop-shadow-lg" />
+        {/* Enhanced geometric shapes with glow - Hidden on small mobile */}
+        <div className="floating-element floating-2 absolute top-1/3 left-8 md:left-20 p-2 md:p-3 bg-blue-500/10 rounded-lg backdrop-blur-sm hidden sm:block">
+          <Code className="w-4 h-4 md:w-8 md:h-8 text-blue-400/60 drop-shadow-lg" />
         </div>
-        <div className="floating-element floating-3 absolute top-1/2 right-32 p-3 bg-purple-500/10 rounded-lg backdrop-blur-sm">
-          <Server className="w-10 h-10 text-purple-400/60 drop-shadow-lg" />
+        <div className="floating-element floating-3 absolute top-1/2 right-16 md:right-32 p-2 md:p-3 bg-purple-500/10 rounded-lg backdrop-blur-sm hidden sm:block">
+          <Server className="w-5 h-5 md:w-10 md:h-10 text-purple-400/60 drop-shadow-lg" />
         </div>
-        <div className="floating-element floating-1 absolute bottom-1/3 left-1/3 p-2 bg-green-500/10 rounded-lg backdrop-blur-sm">
-          <Network className="w-6 h-6 text-green-400/60 drop-shadow-lg" />
+        <div className="floating-element floating-1 absolute bottom-1/3 left-1/3 p-1 md:p-2 bg-green-500/10 rounded-lg backdrop-blur-sm hidden sm:block">
+          <Network className="w-3 h-3 md:w-6 md:h-6 text-green-400/60 drop-shadow-lg" />
         </div>
-        <div className="floating-element floating-2 absolute top-1/4 right-1/4 p-2 bg-yellow-500/10 rounded-lg backdrop-blur-sm">
-          <Sparkles className="w-7 h-7 text-yellow-400/60 drop-shadow-lg" />
+        <div className="floating-element floating-2 absolute top-1/4 right-1/4 p-1 md:p-2 bg-yellow-500/10 rounded-lg backdrop-blur-sm hidden sm:block">
+          <Sparkles className="w-4 h-4 md:w-7 md:h-7 text-yellow-400/60 drop-shadow-lg" />
         </div>
-        <div className="floating-element floating-3 absolute bottom-1/4 left-1/5 p-2 bg-indigo-500/10 rounded-lg backdrop-blur-sm">
-          <Zap className="w-6 h-6 text-indigo-400/60 drop-shadow-lg" />
+        <div className="floating-element floating-3 absolute bottom-1/4 left-1/5 p-1 md:p-2 bg-indigo-500/10 rounded-lg backdrop-blur-sm hidden sm:block">
+          <Zap className="w-3 h-3 md:w-6 md:h-6 text-indigo-400/60 drop-shadow-lg" />
         </div>
-        <div className="floating-element floating-1 absolute top-3/4 right-1/5 p-3 bg-teal-500/10 rounded-lg backdrop-blur-sm">
-          <Database className="w-8 h-8 text-teal-400/60 drop-shadow-lg" />
+        <div className="floating-element floating-1 absolute top-3/4 right-1/5 p-2 md:p-3 bg-teal-500/10 rounded-lg backdrop-blur-sm hidden sm:block">
+          <Database className="w-4 h-4 md:w-8 md:h-8 text-teal-400/60 drop-shadow-lg" />
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="flex-1 flex items-center justify-center px-4 pt-16 relative z-10">
+      {/* Main Content - Mobile Optimized */}
+      <div className="flex-1 flex items-center justify-center px-4 pt-20 md:pt-16 relative z-10">
         <div className="container mx-auto text-center">
           <div ref={heroRef} className="max-w-4xl mx-auto">
-            <h1 ref={titleRef} className="text-4xl md:text-6xl lg:text-7xl font-bold text-slate-100 mb-6">
+            {/* Mobile Optimized Title */}
+            <h1
+              ref={titleRef}
+              className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-slate-100 mb-4 md:mb-6 leading-tight"
+            >
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 gradient-text">
                 {/* Text will be animated here */}
               </span>
               <span className="cursor-blink text-blue-400">|</span>
             </h1>
-            <p ref={subtitleRef} className="text-lg md:text-xl text-slate-300 mb-8 max-w-2xl mx-auto leading-relaxed">
+
+            {/* Mobile Optimized Subtitle */}
+            <p
+              ref={subtitleRef}
+              className="text-sm sm:text-base md:text-lg lg:text-xl text-slate-300 mb-6 md:mb-8 max-w-2xl mx-auto leading-relaxed px-2"
+            >
               {splitTextIntoWords(
                 "Passionate Computer Science student with expertise in backend development, networking, and server management. Currently pursuing B.Sc. in CSE while delivering professional solutions.",
               )}
             </p>
-            <div ref={buttonsRef} className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-              <Link href="/contact">
+
+            {/* Mobile Optimized Buttons */}
+            <div
+              ref={buttonsRef}
+              className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center mb-8 md:mb-12 px-4"
+            >
+              <Link href="/contact" className="w-full sm:w-auto">
                 <Button
                   size="lg"
-                  className="animated-button relative overflow-hidden bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-300"
+                  className="animated-button relative overflow-hidden bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto text-sm md:text-base"
                 >
                   <Mail className="mr-2 h-4 w-4" />
                   Get In Touch
                 </Button>
               </Link>
-              <Link href="/experience">
+              <Link href="/experience" className="w-full sm:w-auto">
                 <Button
                   size="lg"
                   variant="outline"
-                  className="animated-button relative overflow-hidden border-slate-600 text-slate-300 hover:bg-slate-800 hover:text-white backdrop-blur-sm bg-slate-800/30 shadow-lg hover:shadow-xl transition-all duration-300"
+                  className="animated-button relative overflow-hidden border-slate-600 text-slate-300 hover:bg-slate-800 hover:text-white backdrop-blur-sm bg-slate-800/30 shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto text-sm md:text-base"
                 >
                   View My Work
                   <ArrowRight className="ml-2 h-4 w-4" />
@@ -491,21 +505,24 @@ export default function HomePage() {
               </Link>
             </div>
 
-            {/* Enhanced Quick Navigation Cards */}
-            <div ref={cardsRef} className="grid md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+            {/* Mobile Optimized Navigation Cards */}
+            <div
+              ref={cardsRef}
+              className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 max-w-4xl mx-auto px-2"
+            >
               <Link href="/about" className="nav-card group">
-                <div className="text-center p-6 rounded-xl border border-slate-700 bg-slate-800/50 backdrop-blur-sm hover:bg-slate-700/70 hover:shadow-2xl transition-all duration-500 group-hover:border-blue-500/50 relative overflow-hidden">
+                <div className="text-center p-4 md:p-6 rounded-xl border border-slate-700 bg-slate-800/50 backdrop-blur-sm hover:bg-slate-700/70 hover:shadow-2xl transition-all duration-500 group-hover:border-blue-500/50 relative overflow-hidden min-h-[120px] md:min-h-[140px]">
                   {/* Enhanced hover effect overlay */}
                   <div className="card-overlay absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 opacity-0 transition-opacity duration-500"></div>
 
-                  <div className="card-icon w-16 h-16 bg-gradient-to-r from-blue-900/50 to-blue-800/50 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:from-blue-800/70 group-hover:to-blue-700/70 transition-all duration-300 relative z-10 shadow-lg">
-                    <span className="text-2xl">👨‍💻</span>
+                  <div className="card-icon w-12 h-12 md:w-16 md:h-16 bg-gradient-to-r from-blue-900/50 to-blue-800/50 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4 group-hover:from-blue-800/70 group-hover:to-blue-700/70 transition-all duration-300 relative z-10 shadow-lg">
+                    <span className="text-lg md:text-2xl">👨‍💻</span>
                   </div>
                   <div className="card-content relative z-10">
-                    <h3 className="text-lg font-semibold text-slate-100 mb-2 group-hover:text-blue-300 transition-colors duration-300">
+                    <h3 className="text-base md:text-lg font-semibold text-slate-100 mb-1 md:mb-2 group-hover:text-blue-300 transition-colors duration-300">
                       About Me
                     </h3>
-                    <p className="text-sm text-slate-400 group-hover:text-slate-300 transition-colors duration-300">
+                    <p className="text-xs md:text-sm text-slate-400 group-hover:text-slate-300 transition-colors duration-300">
                       Learn about my background
                     </p>
                   </div>
@@ -513,35 +530,35 @@ export default function HomePage() {
               </Link>
 
               <Link href="/skills" className="nav-card group">
-                <div className="text-center p-6 rounded-xl border border-slate-700 bg-slate-800/50 backdrop-blur-sm hover:bg-slate-700/70 hover:shadow-2xl transition-all duration-500 group-hover:border-green-500/50 relative overflow-hidden">
+                <div className="text-center p-4 md:p-6 rounded-xl border border-slate-700 bg-slate-800/50 backdrop-blur-sm hover:bg-slate-700/70 hover:shadow-2xl transition-all duration-500 group-hover:border-green-500/50 relative overflow-hidden min-h-[120px] md:min-h-[140px]">
                   <div className="card-overlay absolute inset-0 bg-gradient-to-r from-green-500/10 to-blue-500/10 opacity-0 transition-opacity duration-500"></div>
 
-                  <div className="card-icon w-16 h-16 bg-gradient-to-r from-green-900/50 to-green-800/50 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:from-green-800/70 group-hover:to-green-700/70 transition-all duration-300 relative z-10 shadow-lg">
-                    <span className="text-2xl">🚀</span>
+                  <div className="card-icon w-12 h-12 md:w-16 md:h-16 bg-gradient-to-r from-green-900/50 to-green-800/50 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4 group-hover:from-green-800/70 group-hover:to-green-700/70 transition-all duration-300 relative z-10 shadow-lg">
+                    <span className="text-lg md:text-2xl">🚀</span>
                   </div>
                   <div className="card-content relative z-10">
-                    <h3 className="text-lg font-semibold text-slate-100 mb-2 group-hover:text-green-300 transition-colors duration-300">
+                    <h3 className="text-base md:text-lg font-semibold text-slate-100 mb-1 md:mb-2 group-hover:text-green-300 transition-colors duration-300">
                       My Skills
                     </h3>
-                    <p className="text-sm text-slate-400 group-hover:text-slate-300 transition-colors duration-300">
+                    <p className="text-xs md:text-sm text-slate-400 group-hover:text-slate-300 transition-colors duration-300">
                       Technologies I work with
                     </p>
                   </div>
                 </div>
               </Link>
 
-              <Link href="/services" className="nav-card group">
-                <div className="text-center p-6 rounded-xl border border-slate-700 bg-slate-800/50 backdrop-blur-sm hover:bg-slate-700/70 hover:shadow-2xl transition-all duration-500 group-hover:border-purple-500/50 relative overflow-hidden">
+              <Link href="/services" className="nav-card group sm:col-span-2 md:col-span-1">
+                <div className="text-center p-4 md:p-6 rounded-xl border border-slate-700 bg-slate-800/50 backdrop-blur-sm hover:bg-slate-700/70 hover:shadow-2xl transition-all duration-500 group-hover:border-purple-500/50 relative overflow-hidden min-h-[120px] md:min-h-[140px]">
                   <div className="card-overlay absolute inset-0 bg-gradient-to-r from-purple-500/10 to-pink-500/10 opacity-0 transition-opacity duration-500"></div>
 
-                  <div className="card-icon w-16 h-16 bg-gradient-to-r from-purple-900/50 to-purple-800/50 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:from-purple-800/70 group-hover:to-purple-700/70 transition-all duration-300 relative z-10 shadow-lg">
-                    <span className="text-2xl">💼</span>
+                  <div className="card-icon w-12 h-12 md:w-16 md:h-16 bg-gradient-to-r from-purple-900/50 to-purple-800/50 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4 group-hover:from-purple-800/70 group-hover:to-purple-700/70 transition-all duration-300 relative z-10 shadow-lg">
+                    <span className="text-lg md:text-2xl">💼</span>
                   </div>
                   <div className="card-content relative z-10">
-                    <h3 className="text-lg font-semibold text-slate-100 mb-2 group-hover:text-purple-300 transition-colors duration-300">
+                    <h3 className="text-base md:text-lg font-semibold text-slate-100 mb-1 md:mb-2 group-hover:text-purple-300 transition-colors duration-300">
                       Services
                     </h3>
-                    <p className="text-sm text-slate-400 group-hover:text-slate-300 transition-colors duration-300">
+                    <p className="text-xs md:text-sm text-slate-400 group-hover:text-slate-300 transition-colors duration-300">
                       What I can do for you
                     </p>
                   </div>

@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -36,6 +36,7 @@ export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [error, setError] = useState("")
+  const containerRef = useRef<HTMLDivElement>(null)
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -126,6 +127,128 @@ export default function ContactPage() {
     }
   }
 
+  useEffect(() => {
+    const loadGSAP = async () => {
+      const gsap = (await import("gsap")).default
+
+      // Set initial states for floating elements with random rotation (for shaky effect)
+      gsap.set(".floating-element", {
+        opacity: 0,
+        scale: 0,
+        rotation: () => gsap.utils.random(-180, 180),
+      })
+
+      // Create timeline and add the shaky entrance effect for floating elements
+      const tl = gsap.timeline({ delay: 0.5 })
+
+      tl.to(".floating-element", {
+        opacity: 0.7,
+        scale: 1,
+        rotation: 0,
+        duration: 1.2,
+        stagger: {
+          amount: 1,
+          from: "random",
+          ease: "power2.out",
+        },
+        ease: "elastic.out(1, 0.3)",
+      })
+
+      // Continuous floating animations (start after entrance)
+      tl.call(() => {
+        gsap.to(".floating-1", {
+          y: -30,
+          x: 15,
+          rotation: 10,
+          scale: 1.1,
+          duration: 6,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+        })
+
+        gsap.to(".floating-2", {
+          y: 25,
+          x: -20,
+          rotation: -8,
+          scale: 0.9,
+          duration: 7,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+        })
+
+        gsap.to(".floating-3", {
+          y: -35,
+          x: 25,
+          rotation: 12,
+          scale: 1.05,
+          duration: 8,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+        })
+      })
+
+      // Parallax effect for floating elements
+      const handleWindowMouseMove = (e: MouseEvent) => {
+        const x = (e.clientX / window.innerWidth - 0.5) * 2
+        const y = (e.clientY / window.innerHeight - 0.5) * 2
+
+        gsap.to(".floating-1", {
+          x: x * 20,
+          y: y * 20,
+          duration: 1,
+          ease: "power2.out",
+        })
+
+        gsap.to(".floating-2", {
+          x: x * -15,
+          y: y * -15,
+          duration: 1.2,
+          ease: "power2.out",
+        })
+
+        gsap.to(".floating-3", {
+          x: x * 25,
+          y: y * 25,
+          duration: 0.8,
+          ease: "power2.out",
+        })
+      }
+
+      window.addEventListener("mousemove", handleWindowMouseMove)
+
+      // Hover animations for FAQ cards
+      const faqCards = document.querySelectorAll(".faq-card")
+      faqCards.forEach((card) => {
+        card.addEventListener("mouseenter", () => {
+          gsap.to(card, {
+            scale: 1.05,
+            y: -5,
+            duration: 0.3,
+            ease: "power2.out",
+          })
+        })
+
+        card.addEventListener("mouseleave", () => {
+          gsap.to(card, {
+            scale: 1,
+            y: 0,
+            duration: 0.3,
+            ease: "power2.out",
+          })
+        })
+      })
+
+      return () => {
+        window.removeEventListener("mousemove", handleWindowMouseMove)
+      }
+    }
+
+    loadGSAP()
+  }, [])
+
   if (isSubmitted) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center px-4">
@@ -147,8 +270,36 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-      <section className="pt-24 pb-16 px-4">
+    <div ref={containerRef} className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+      {/* Enhanced Floating Background Elements */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        {/* Gradient orbs with enhanced blur */}
+        <div className="floating-element floating-1 absolute top-20 left-10 w-24 h-24 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-full blur-2xl"></div>
+        <div className="floating-element floating-2 absolute top-40 right-20 w-36 h-36 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full blur-2xl"></div>
+        <div className="floating-element floating-3 absolute bottom-40 left-1/4 w-28 h-28 bg-gradient-to-r from-green-500/20 to-emerald-500/20 rounded-full blur-2xl"></div>
+        <div className="floating-element floating-1 absolute bottom-20 right-10 w-32 h-32 bg-gradient-to-r from-orange-500/20 to-red-500/20 rounded-full blur-2xl"></div>
+
+        {/* Enhanced geometric shapes with glow - Contact themed icons */}
+        <div className="floating-element floating-2 absolute top-1/3 left-20 p-3 bg-blue-500/10 rounded-lg backdrop-blur-sm">
+          <Mail className="w-8 h-8 text-blue-400/60 drop-shadow-lg" />
+        </div>
+        <div className="floating-element floating-3 absolute top-1/2 right-32 p-3 bg-purple-500/10 rounded-lg backdrop-blur-sm">
+          <Phone className="w-10 h-10 text-purple-400/60 drop-shadow-lg" />
+        </div>
+        <div className="floating-element floating-1 absolute bottom-1/3 left-1/3 p-2 bg-green-500/10 rounded-lg backdrop-blur-sm">
+          <MapPin className="w-6 h-6 text-green-400/60 drop-shadow-lg" />
+        </div>
+        <div className="floating-element floating-2 absolute top-1/4 right-1/4 p-2 bg-yellow-500/10 rounded-lg backdrop-blur-sm">
+          <MessageCircle className="w-7 h-7 text-yellow-400/60 drop-shadow-lg" />
+        </div>
+        <div className="floating-element floating-3 absolute bottom-1/4 left-1/5 p-2 bg-indigo-500/10 rounded-lg backdrop-blur-sm">
+          <Send className="w-6 h-6 text-indigo-400/60 drop-shadow-lg" />
+        </div>
+        <div className="floating-element floating-1 absolute top-3/4 right-1/5 p-3 bg-teal-500/10 rounded-lg backdrop-blur-sm">
+          <Globe className="w-8 h-8 text-teal-400/60 drop-shadow-lg" />
+        </div>
+      </div>
+      <section className="pt-24 pb-16 px-4 relative z-10">
         <div className="container mx-auto">
           <Header
             title="Get In Touch"
@@ -548,7 +699,7 @@ export default function ContactPage() {
           <div className="mt-16 max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold text-slate-100 mb-8 text-center">Frequently Asked Questions</h2>
             <div className="grid md:grid-cols-2 gap-6">
-              <Card className="bg-slate-800 border-slate-700">
+              <Card className="faq-card bg-slate-800 border-slate-700">
                 <CardContent className="pt-6">
                   <h3 className="font-semibold text-slate-100 mb-2">How quickly do you respond?</h3>
                   <p className="text-slate-300 text-sm">
@@ -556,7 +707,7 @@ export default function ContactPage() {
                   </p>
                 </CardContent>
               </Card>
-              <Card className="bg-slate-800 border-slate-700">
+              <Card className="faq-card bg-slate-800 border-slate-700">
                 <CardContent className="pt-6">
                   <h3 className="font-semibold text-slate-100 mb-2">Do you work with international clients?</h3>
                   <p className="text-slate-300 text-sm">
@@ -565,7 +716,7 @@ export default function ContactPage() {
                   </p>
                 </CardContent>
               </Card>
-              <Card className="bg-slate-800 border-slate-700">
+              <Card className="faq-card bg-slate-800 border-slate-700">
                 <CardContent className="pt-6">
                   <h3 className="font-semibold text-slate-100 mb-2">What's your typical project timeline?</h3>
                   <p className="text-slate-300 text-sm">
@@ -573,7 +724,7 @@ export default function ContactPage() {
                   </p>
                 </CardContent>
               </Card>
-              <Card className="bg-slate-800 border-slate-700">
+              <Card className="faq-card bg-slate-800 border-slate-700">
                 <CardContent className="pt-6">
                   <h3 className="font-semibold text-slate-100 mb-2">Do you provide ongoing support?</h3>
                   <p className="text-slate-300 text-sm">

@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "Professional Portfolio - Full Stack Developer & Network Engineer",
+  title: "Saif Arabi",
   description: "Professional portfolio showcasing expertise in backend development, networking, and server management",
 }
 
