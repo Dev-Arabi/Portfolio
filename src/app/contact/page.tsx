@@ -133,7 +133,7 @@ export default function ContactPage() {
           <CardContent className="pt-6">
             <CheckCircle className="h-16 w-16 text-green-400 mx-auto mb-4" />
             <h2 className="text-2xl font-bold text-slate-100 mb-2">Message Sent Successfully!</h2>
-            <p className="text-slate-300 mb-4">Thank you for reaching out. I'll get back to you within 24 hours.</p>
+            <p className="text-slate-300 mb-4">Thank you for reaching out. I will get back to you within 24 hours.</p>
             <Button
               onClick={() => setIsSubmitted(false)}
               className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
