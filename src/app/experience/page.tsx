@@ -102,6 +102,28 @@ export default function ExperiencePage() {
 
         window.addEventListener("mousemove", handleWindowMouseMove)
 
+        // Enhanced hover animations for experience cards with glowing borders
+        const experienceCards = document.querySelectorAll(".experience-card")
+        experienceCards.forEach((card) => {
+          card.addEventListener("mouseenter", () => {
+            gsap.to(card, {
+              scale: 1.01,
+              y: -2,
+              duration: 0.3,
+              ease: "power2.out",
+            })
+          })
+
+          card.addEventListener("mouseleave", () => {
+            gsap.to(card, {
+              scale: 1,
+              y: 0,
+              duration: 0.3,
+              ease: "power2.out",
+            })
+          })
+        })
+
         // Hover animations for skills summary cards
         const skillsCards = document.querySelectorAll(".skills-card")
         skillsCards.forEach((card) => {
@@ -175,7 +197,7 @@ export default function ExperiencePage() {
 
           <div className="max-w-4xl mx-auto space-y-8">
             {/* Current Position */}
-            <Card className="hover:shadow-xl transition-shadow border-l-4 border-l-blue-500 bg-slate-800 border-slate-700">
+            <Card className="experience-card hover:shadow-xl transition-all duration-300 border-l-4 border-l-blue-500 bg-slate-800 border-slate-700 hover:border-blue-500/60 hover:shadow-blue-500/5">
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-3">
@@ -191,7 +213,7 @@ export default function ExperiencePage() {
                 </div>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-white mb-4">2021 - Present (3+ years)</p>
+                <p className="text-sm text-white mb-4">2023 - Present (2+ years)</p>
                 <p className="text-white mb-4">
                   Leading backend development projects, architecting scalable solutions, and mentoring junior
                   developers.
@@ -199,11 +221,11 @@ export default function ExperiencePage() {
                 <div className="space-y-3">
                   <h4 className="font-semibold text-white">Key Responsibilities:</h4>
                   <ul className="space-y-2 text-white">
-                    <li>• Designed and implemented RESTful APIs serving 10,000+ daily requests</li>
-                    <li>• Architected microservices infrastructure using modern technologies</li>
-                    <li>• Optimized database queries resulting in 40% performance improvement</li>
-                    <li>• Led code reviews and established development best practices</li>
-                    <li>• Mentored 5+ junior developers in backend technologies</li>
+                    <li>• Built basic REST APIs to support core application features</li>
+                    <li>• Contributed to modularizing code into smaller components for easier maintenance</li>
+                    <li>• Improved application performance by reducing unnecessary database calls</li>
+                    <li>• Participated in team code reviews and followed standard coding guidelines</li>
+                    <li>• Helped onboard new team members and shared knowledge about backend tools</li>
                   </ul>
                 </div>
                 <div className="mt-4">
@@ -219,6 +241,9 @@ export default function ExperiencePage() {
                       MySQL
                     </Badge>
                     <Badge variant="outline" className="border-slate-600 text-white">
+                      Supabase
+                    </Badge>
+                    <Badge variant="outline" className="border-slate-600 text-white">
                       Redis
                     </Badge>
                     <Badge variant="outline" className="border-slate-600 text-white">
@@ -230,7 +255,7 @@ export default function ExperiencePage() {
             </Card>
 
             {/* Previous Positions */}
-            <Card className="hover:shadow-xl transition-shadow border-l-4 border-l-green-500 bg-slate-800 border-slate-700">
+            <Card className="experience-card hover:shadow-xl transition-all duration-300 border-l-4 border-l-green-500 bg-slate-800 border-slate-700 hover:border-green-500/60 hover:shadow-green-500/5">
               <CardHeader>
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 bg-green-900/50 rounded-lg flex items-center justify-center">
@@ -255,7 +280,6 @@ export default function ExperiencePage() {
                     <li>• Implemented security protocols reducing network vulnerabilities by 60%</li>
                     <li>• Optimized network performance achieving 99.9% uptime</li>
                     <li>• Managed Mikrotik routers and switches configuration</li>
-                    <li>• Troubleshot complex network issues and provided 24/7 support</li>
                   </ul>
                 </div>
                 <div className="mt-4">
@@ -265,7 +289,7 @@ export default function ExperiencePage() {
                       Mikrotik
                     </Badge>
                     <Badge variant="outline" className="border-slate-600 text-white">
-                      Cisco
+                      Ovpn
                     </Badge>
                     <Badge variant="outline" className="border-slate-600 text-white">
                       VLAN
@@ -281,7 +305,7 @@ export default function ExperiencePage() {
               </CardContent>
             </Card>
 
-            <Card className="hover:shadow-xl transition-shadow border-l-4 border-l-purple-500 bg-slate-800 border-slate-700">
+            <Card className="experience-card hover:shadow-xl transition-all duration-300 border-l-4 border-l-purple-500 bg-slate-800 border-slate-700 hover:border-purple-500/60 hover:shadow-purple-500/5">
               <CardHeader>
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 bg-purple-900/50 rounded-lg flex items-center justify-center">
@@ -302,7 +326,7 @@ export default function ExperiencePage() {
                 <div className="space-y-3">
                   <h4 className="font-semibold text-white">Key Achievements:</h4>
                   <ul className="space-y-2 text-white">
-                    <li>• Managed 50+ Linux servers with 99.8% uptime</li>
+                    <li>• Managed 15+ Linux servers with 99.8% uptime</li>
                     <li>• Implemented automated backup solutions saving 20 hours/week</li>
                     <li>• Set up monitoring systems for proactive issue detection</li>
                     <li>• Optimized server performance reducing response time by 35%</li>
@@ -325,6 +349,9 @@ export default function ExperiencePage() {
                       MySQL
                     </Badge>
                     <Badge variant="outline" className="border-slate-600 text-white">
+                      Supabase
+                    </Badge>
+                    <Badge variant="outline" className="border-slate-600 text-white">
                       Monitoring Tools
                     </Badge>
                   </div>
@@ -337,21 +364,21 @@ export default function ExperiencePage() {
           <div className="mt-16 max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold text-white mb-8 text-center">Professional Skills Summary</h2>
             <div className="grid md:grid-cols-3 gap-8">
-              <div className="skills-card bg-slate-800 p-6 rounded-lg shadow-lg text-center border border-slate-700">
+              <div className="skills-card bg-slate-800 p-6 rounded-lg shadow-lg text-center border border-slate-700 hover:border-blue-500/60 hover:shadow-blue-500/10 transition-all duration-300">
                 <div className="w-16 h-16 bg-blue-900/50 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Code className="h-8 w-8 text-blue-400" />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-2">Backend Development</h3>
                 <p className="text-white">3+ years of experience in building scalable backend systems</p>
               </div>
-              <div className="skills-card bg-slate-800 p-6 rounded-lg shadow-lg text-center border border-slate-700">
+              <div className="skills-card bg-slate-800 p-6 rounded-lg shadow-lg text-center border border-slate-700 hover:border-green-500/60 hover:shadow-green-500/10 transition-all duration-300">
                 <div className="w-16 h-16 bg-green-900/50 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Network className="h-8 w-8 text-green-400" />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-2">Network Engineering</h3>
                 <p className="text-white">Expert in network design, security, and optimization</p>
               </div>
-              <div className="skills-card bg-slate-800 p-6 rounded-lg shadow-lg text-center border border-slate-700">
+              <div className="skills-card bg-slate-800 p-6 rounded-lg shadow-lg text-center border border-slate-700 hover:border-purple-500/60 hover:shadow-purple-500/10 transition-all duration-300">
                 <div className="w-16 h-16 bg-purple-900/50 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Server className="h-8 w-8 text-purple-400" />
                 </div>
