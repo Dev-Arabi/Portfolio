@@ -335,15 +335,15 @@ export default function AboutPage() {
 
             {/* Stats Section */}
             <div ref={statsRef} className="grid grid-cols-3 gap-4 max-w-2xl mx-auto">
-              <div className="stat-card text-center p-4 bg-slate-800/70 rounded-lg shadow-lg border border-slate-700">
+              <div className="stat-card text-center p-4 bg-slate-800/70 rounded-lg shadow-lg border border-blue-500/20">
                 <div className="text-2xl md:text-3xl font-bold text-blue-400 mb-1">3+</div>
                 <div className="text-sm text-slate-400">Years Experience</div>
               </div>
-              <div className="stat-card text-center p-4 bg-slate-800/70 rounded-lg shadow-lg border border-slate-700">
+              <div className="stat-card text-center p-4 bg-slate-800/70 rounded-lg shadow-lg border border-green-500/20">
                 <div className="text-2xl md:text-3xl font-bold text-green-400 mb-1">50+</div>
                 <div className="text-sm text-slate-400">Projects Completed</div>
               </div>
-              <div className="stat-card text-center p-4 bg-slate-800/70 rounded-lg shadow-lg border border-slate-700">
+              <div className="stat-card text-center p-4 bg-slate-800/70 rounded-lg shadow-lg border border-purple-500/20">
                 <div className="text-2xl md:text-3xl font-bold text-purple-400 mb-1">100%</div>
                 <div className="text-sm text-slate-400">Client Satisfaction</div>
               </div>

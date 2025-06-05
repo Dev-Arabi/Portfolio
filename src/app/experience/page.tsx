@@ -102,15 +102,17 @@ export default function ExperiencePage() {
 
         window.addEventListener("mousemove", handleWindowMouseMove)
 
-        // Enhanced hover animations for experience cards with glowing borders
+        // Ultra-smooth hover animations for experience cards - 200fps smooth
         const experienceCards = document.querySelectorAll(".experience-card")
         experienceCards.forEach((card) => {
           card.addEventListener("mouseenter", () => {
             gsap.to(card, {
-              scale: 1.01,
-              y: -2,
-              duration: 0.3,
-              ease: "power2.out",
+              scale: 1.008,
+              y: -1,
+              duration: 0.2,
+              ease: "power1.out",
+              force3D: true,
+              transformOrigin: "center center",
             })
           })
 
@@ -118,13 +120,15 @@ export default function ExperiencePage() {
             gsap.to(card, {
               scale: 1,
               y: 0,
-              duration: 0.3,
-              ease: "power2.out",
+              duration: 0.2,
+              ease: "power1.out",
+              force3D: true,
+              transformOrigin: "center center",
             })
           })
         })
 
-        // Hover animations for skills summary cards
+        // Ultra-smooth hover animations for skills summary cards - 200fps smooth
         const skillsCards = document.querySelectorAll(".skills-card")
         skillsCards.forEach((card) => {
           card.addEventListener("mouseenter", () => {
@@ -364,21 +368,21 @@ export default function ExperiencePage() {
           <div className="mt-16 max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold text-white mb-8 text-center">Professional Skills Summary</h2>
             <div className="grid md:grid-cols-3 gap-8">
-              <div className="skills-card bg-slate-800 p-6 rounded-lg shadow-lg text-center border border-slate-700 hover:border-blue-500/60 hover:shadow-blue-500/10 transition-all duration-300">
+              <div className="skills-card bg-slate-800 p-6 rounded-lg shadow-lg text-center border border-slate-700">
                 <div className="w-16 h-16 bg-blue-900/50 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Code className="h-8 w-8 text-blue-400" />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-2">Backend Development</h3>
                 <p className="text-white">3+ years of experience in building scalable backend systems</p>
               </div>
-              <div className="skills-card bg-slate-800 p-6 rounded-lg shadow-lg text-center border border-slate-700 hover:border-green-500/60 hover:shadow-green-500/10 transition-all duration-300">
+              <div className="skills-card bg-slate-800 p-6 rounded-lg shadow-lg text-center border border-slate-700">
                 <div className="w-16 h-16 bg-green-900/50 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Network className="h-8 w-8 text-green-400" />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-2">Network Engineering</h3>
                 <p className="text-white">Expert in network design, security, and optimization</p>
               </div>
-              <div className="skills-card bg-slate-800 p-6 rounded-lg shadow-lg text-center border border-slate-700 hover:border-purple-500/60 hover:shadow-purple-500/10 transition-all duration-300">
+              <div className="skills-card bg-slate-800 p-6 rounded-lg shadow-lg text-center border border-slate-700">
                 <div className="w-16 h-16 bg-purple-900/50 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Server className="h-8 w-8 text-purple-400" />
                 </div>

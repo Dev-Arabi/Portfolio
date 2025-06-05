@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Palette, Code, Network, Server, Globe, Shield, ArrowRight } from "lucide-react"
@@ -104,7 +103,7 @@ export default function ServicesPage() {
 
         window.addEventListener("mousemove", handleWindowMouseMove)
 
-        // Hover animations for "Why Choose Me?" section cards
+        // Ultra-smooth hover animations for "Why Choose Me?" section cards - 200fps smooth
         const whyChooseMeCards = document.querySelectorAll(".why-choose-me-card")
         whyChooseMeCards.forEach((card) => {
           card.addEventListener("mouseenter", () => {
@@ -146,6 +145,12 @@ export default function ServicesPage() {
       features: ["Responsive Design", "Modern UI/UX", "SEO Optimized", "Fast Loading"],
       color: "blue",
       price: "Starting from $500",
+      colorClasses: {
+        border: "border-blue-500/20",
+        hoverShadow: "hover:shadow-blue-500/10",
+        iconBg: "bg-blue-900/60",
+        iconColor: "text-blue-400",
+      },
     },
     {
       icon: Code,
@@ -155,6 +160,12 @@ export default function ServicesPage() {
       features: ["RESTful APIs", "Database Design", "Performance Optimization", "Security Implementation"],
       color: "green",
       price: "Starting from $800",
+      colorClasses: {
+        border: "border-green-500/20",
+        hoverShadow: "hover:shadow-green-500/10",
+        iconBg: "bg-green-900/60",
+        iconColor: "text-green-400",
+      },
     },
     {
       icon: Network,
@@ -164,6 +175,12 @@ export default function ServicesPage() {
       features: ["Network Design", "Mikrotik Configuration", "VPN Setup", "Security Protocols"],
       color: "purple",
       price: "Starting from $600",
+      colorClasses: {
+        border: "border-purple-500/20",
+        hoverShadow: "hover:shadow-purple-500/10",
+        iconBg: "bg-purple-900/60",
+        iconColor: "text-purple-400",
+      },
     },
     {
       icon: Server,
@@ -173,6 +190,12 @@ export default function ServicesPage() {
       features: ["Linux Administration", "Performance Monitoring", "Backup Solutions", "Security Hardening"],
       color: "orange",
       price: "Starting from $400",
+      colorClasses: {
+        border: "border-orange-500/20",
+        hoverShadow: "hover:shadow-orange-500/10",
+        iconBg: "bg-orange-900/60",
+        iconColor: "text-orange-400",
+      },
     },
     {
       icon: Globe,
@@ -182,6 +205,12 @@ export default function ServicesPage() {
       features: ["Complete Web Apps", "Database Integration", "User Authentication", "Deployment"],
       color: "red",
       price: "Starting from $1200",
+      colorClasses: {
+        border: "border-red-500/20",
+        hoverShadow: "hover:shadow-red-500/10",
+        iconBg: "bg-red-900/60",
+        iconColor: "text-red-400",
+      },
     },
     {
       icon: Shield,
@@ -191,20 +220,14 @@ export default function ServicesPage() {
       features: ["Security Audits", "Vulnerability Assessment", "SSL Implementation", "Firewall Configuration"],
       color: "indigo",
       price: "Starting from $300",
+      colorClasses: {
+        border: "border-indigo-500/20",
+        hoverShadow: "hover:shadow-indigo-500/10",
+        iconBg: "bg-indigo-900/60",
+        iconColor: "text-indigo-400",
+      },
     },
   ]
-
-  const getColorClasses = (color: string) => {
-    const colorMap = {
-      blue: "bg-blue-900/50 text-blue-400",
-      green: "bg-green-900/50 text-green-400",
-      purple: "bg-purple-900/50 text-purple-400",
-      orange: "bg-orange-900/50 text-orange-400",
-      red: "bg-red-900/50 text-red-400",
-      indigo: "bg-indigo-900/50 text-indigo-400",
-    }
-    return colorMap[color as keyof typeof colorMap] || colorMap.blue
-  }
 
   return (
     <div
@@ -252,19 +275,20 @@ export default function ServicesPage() {
             {services.map((service, index) => {
               const IconComponent = service.icon
               return (
-                <Card
+                <div
                   key={index}
-                  className="hover:shadow-xl transition-shadow border-2 hover:border-slate-600 group bg-slate-800 border-slate-700 flex flex-col h-full"
+                  className={`bg-slate-800/60 backdrop-blur-sm p-6 rounded-xl shadow-lg border ${service.colorClasses.border} hover:shadow-xl ${service.colorClasses.hoverShadow} transition-all duration-300 relative overflow-hidden group flex flex-col h-full`}
                 >
-                  <CardHeader className="flex-shrink-0">
-                    <div
-                      className={`w-16 h-16 rounded-lg flex items-center justify-center mx-auto mb-4 ${getColorClasses(service.color)} group-hover:scale-110 transition-transform`}
-                    >
-                      <IconComponent className="h-8 w-8" />
+                  <div className="relative z-10 flex-1 flex flex-col">
+                    <div className="flex-shrink-0">
+                      <div
+                        className={`w-16 h-16 rounded-lg flex items-center justify-center mx-auto mb-4 ${service.colorClasses.iconBg}`}
+                      >
+                        <IconComponent className={`h-8 w-8 ${service.colorClasses.iconColor}`} />
+                      </div>
+                      <h3 className="text-xl font-bold text-center text-slate-100 mb-4">{service.title}</h3>
                     </div>
-                    <CardTitle className="text-xl text-center text-slate-100">{service.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="text-center flex-1 flex flex-col">
+
                     {/* Description - Fixed height area */}
                     <div className="h-20 flex items-center justify-center mb-6">
                       <p className="text-slate-300 text-sm leading-relaxed">{service.description}</p>
@@ -296,8 +320,8 @@ export default function ServicesPage() {
                         </Button>
                       </Link>
                     </div>
-                  </CardContent>
-                </Card>
+                  </div>
+                </div>
               )
             })}
           </div>
@@ -327,51 +351,60 @@ export default function ServicesPage() {
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold text-slate-100 mb-8 text-center">Why Choose Me?</h2>
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="why-choose-me-card bg-slate-800 p-6 rounded-lg shadow-lg border border-slate-700">
-                <h3 className="text-xl font-semibold text-slate-100 mb-4">Professional Excellence</h3>
-                <ul className="space-y-2 text-slate-300">
-                  <li>• 3+ years of professional experience</li>
-                  <li>• Proven track record with 50+ completed projects</li>
-                  <li>• 100% client satisfaction rate</li>
-                  <li>• Continuous learning and skill development</li>
-                </ul>
+              <div className="why-choose-me-card bg-slate-800/60 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-blue-500/20 bg-gradient-to-r from-blue-900/10 to-blue-800/10 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-400/80 to-blue-500/80 opacity-5 group-hover:opacity-10 transition-opacity duration-300"></div>
+                <div className="relative z-10">
+                  <h3 className="text-xl font-semibold text-slate-100 mb-4">Professional Excellence</h3>
+                  <ul className="space-y-2 text-slate-300">
+                    <li>• 3+ years of professional experience</li>
+                    <li>• Proven track record with 50+ completed projects</li>
+                    <li>• 100% client satisfaction rate</li>
+                    <li>• Continuous learning and skill development</li>
+                  </ul>
+                </div>
               </div>
-              <div className="why-choose-me-card bg-slate-800 p-6 rounded-lg shadow-lg border border-slate-700">
-                <h3 className="text-xl font-semibold text-slate-100 mb-4">Service Commitment</h3>
-                <ul className="space-y-2 text-slate-300">
-                  <li>• Clear communication throughout the project</li>
-                  <li>• On-time delivery and within budget</li>
-                  <li>• Post-project support and maintenance</li>
-                  <li>• Flexible and adaptable to your needs</li>
-                </ul>
+              <div className="why-choose-me-card bg-slate-800/60 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-purple-500/20 bg-gradient-to-r from-purple-900/10 to-purple-800/10 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-400/80 to-purple-500/80 opacity-5 group-hover:opacity-10 transition-opacity duration-300"></div>
+                <div className="relative z-10">
+                  <h3 className="text-xl font-semibold text-slate-100 mb-4">Service Commitment</h3>
+                  <ul className="space-y-2 text-slate-300">
+                    <li>• Clear communication throughout the project</li>
+                    <li>• On-time delivery and within budget</li>
+                    <li>• Post-project support and maintenance</li>
+                    <li>• Flexible and adaptable to your needs</li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
 
           {/* CTA Section */}
-          <div className="mt-16 text-center bg-slate-800 p-8 rounded-lg shadow-lg max-w-2xl mx-auto border border-slate-700">
-            <h2 className="text-2xl font-bold text-slate-100 mb-4">Ready to Start Your Project?</h2>
-            <p className="text-slate-300 mb-6">
-              Let&apos;s discuss your requirements and create something amazing together.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contact">
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-                >
-                  Get Free Consultation
-                </Button>
-              </Link>
-              <Link href="/experience">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-slate-600 text-slate-300 hover:bg-slate-700 hover:text-white"
-                >
-                  View My Work
-                </Button>
-              </Link>
+          <div className="mt-16 text-center bg-slate-800/60 backdrop-blur-sm p-8 rounded-xl shadow-lg max-w-2xl mx-auto border border-blue-500/20 bg-gradient-to-r from-blue-900/10 to-purple-900/10 relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-400/80 to-purple-400/80 opacity-5 hover:opacity-10 transition-opacity duration-300"></div>
+            <div className="relative z-10">
+              <h2 className="text-2xl font-bold text-slate-100 mb-4">Ready to Start Your Project?</h2>
+              <p className="text-slate-300 mb-6">
+                Let&apos;s discuss your requirements and create something amazing together.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link href="/contact">
+                  <Button
+                    size="lg"
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                  >
+                    Get Free Consultation
+                  </Button>
+                </Link>
+                <Link href="/experience">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="border-slate-600 text-slate-300 hover:bg-slate-700 hover:text-white"
+                  >
+                    View My Work
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
         </div>

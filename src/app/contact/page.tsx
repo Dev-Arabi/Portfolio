@@ -219,15 +219,26 @@ export default function ContactPage() {
 
       window.addEventListener("mousemove", handleWindowMouseMove)
 
-      // Hover animations for FAQ cards
+      return () => {
+        window.removeEventListener("mousemove", handleWindowMouseMove)
+      }
+    }
+
+    loadGSAP()
+
+    // Ultra-smooth hover animations for FAQ cards - 200fps smooth
+    const initializeFaqCards = async () => {
       const faqCards = document.querySelectorAll(".faq-card")
+      const gsap = (await import("gsap")).default
       faqCards.forEach((card) => {
         card.addEventListener("mouseenter", () => {
           gsap.to(card, {
-            scale: 1.05,
-            y: -5,
-            duration: 0.3,
-            ease: "power2.out",
+            scale: 1.015,
+            y: -2,
+            duration: 0.25,
+            ease: "power1.out",
+            force3D: true,
+            transformOrigin: "center center",
           })
         })
 
@@ -235,18 +246,16 @@ export default function ContactPage() {
           gsap.to(card, {
             scale: 1,
             y: 0,
-            duration: 0.3,
-            ease: "power2.out",
+            duration: 0.25,
+            ease: "power1.out",
+            force3D: true,
+            transformOrigin: "center center",
           })
         })
       })
-
-      return () => {
-        window.removeEventListener("mousemove", handleWindowMouseMove)
-      }
     }
 
-    loadGSAP()
+    initializeFaqCards()
   }, [])
 
   if (isSubmitted) {
@@ -310,7 +319,7 @@ export default function ContactPage() {
             {/* Contact Information */}
             <div className="lg:col-span-1 space-y-6">
               {/* Contact Details */}
-              <Card className="hover:shadow-xl transition-shadow bg-slate-800 border-slate-700">
+              <Card className="contact-card bg-slate-800 border border-blue-500/20 shadow-lg">
                 <CardHeader>
                   <CardTitle className="text-xl flex items-center gap-2 text-slate-100">
                     <Mail className="h-5 w-5 text-blue-400" />
@@ -368,7 +377,7 @@ export default function ContactPage() {
               </Card>
 
               {/* Availability Status Yes */}
-              <Card className="hover:shadow-xl transition-shadow bg-slate-800 border-slate-700">
+              <Card className="contact-card bg-slate-800 border border-green-500/20 shadow-lg">
                 <CardHeader>
                   <CardTitle className="text-xl text-slate-100">Current Availability</CardTitle>
                 </CardHeader>
@@ -387,7 +396,7 @@ export default function ContactPage() {
               </Card>
 
               {/* Availability Status No 
-              <Card className="hover:shadow-xl transition-shadow bg-slate-800 border-slate-700">
+              <Card className="contact-card bg-slate-800 border border-red-500/20 shadow-lg">
                 <CardHeader>
                   <CardTitle className="text-xl text-slate-100">Current Availability</CardTitle>
                 </CardHeader>
@@ -395,17 +404,17 @@ export default function ContactPage() {
                   <div className="space-y-4">
                     <div className="bg-red-900/50 text-red-300 px-4 py-3 rounded-lg flex items-center gap-2 border border-red-800">
                       <span className="w-3 h-3 bg-red-400 rounded-full animate-pulse"></span>
-                      <span className="font-medium">Not Available for new projects</span>
+                      <span className="font-medium">Not available for new projects</span>
                     </div>
                     <p className="text-slate-300 text-sm">
-                      Currently I'm not accepting new projects and collaborations. Please email me for furthur information.
+                      I&apos;m currently booked and not accepting new projects. Feel free to reach out for future opportunities or questions.
                     </p>
                   </div>
                 </CardContent>
               </Card> */}
 
               {/* Services Quick Links */}
-              <Card className="hover:shadow-xl transition-shadow bg-slate-800 border-slate-700">
+              <Card className="contact-card bg-slate-800 border border-purple-500/20 shadow-lg">
                 <CardHeader>
                   <CardTitle className="text-xl text-slate-100">Popular Services</CardTitle>
                 </CardHeader>
@@ -423,7 +432,7 @@ export default function ContactPage() {
 
             {/* Contact Form */}
             <div className="lg:col-span-2">
-              <Card className="hover:shadow-xl transition-shadow bg-slate-800 border-slate-700">
+              <Card className="contact-card bg-slate-800 border border-slate-500/20 shadow-lg">
                 <CardHeader>
                   <CardTitle className="text-2xl text-slate-100">Let&apos;s Start a Conversation</CardTitle>
                   <CardDescription className="text-slate-400">
@@ -479,6 +488,7 @@ export default function ContactPage() {
                         <Input
                           id="phone"
                           type="tel"
+                          pattern="[0-9+]+"
                           value={formData.phone}
                           onChange={(e) => handleInputChange("phone", e.target.value)}
                           placeholder="+1 (555) 123-4567"
@@ -699,16 +709,18 @@ export default function ContactPage() {
           <div className="mt-16 max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold text-slate-100 mb-8 text-center">Frequently Asked Questions</h2>
             <div className="grid md:grid-cols-2 gap-6">
-              <Card className="faq-card bg-slate-800 border-slate-700">
-                <CardContent className="pt-6">
+              <Card className="faq-card bg-slate-800/60 backdrop-blur-sm border border-blue-500/20 shadow-lg relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-400/80 to-blue-500/80 opacity-5 hover:opacity-10 transition-opacity duration-300"></div>
+                <CardContent className="pt-6 relative z-10">
                   <h3 className="font-semibold text-slate-100 mb-2">How quickly do you respond?</h3>
                   <p className="text-slate-300 text-sm">
                     I typically respond to all inquiries within 24 hours, often much sooner during business hours.
                   </p>
                 </CardContent>
               </Card>
-              <Card className="faq-card bg-slate-800 border-slate-700">
-                <CardContent className="pt-6">
+              <Card className="faq-card bg-slate-800/60 backdrop-blur-sm border border-green-500/20 shadow-lg relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-green-400/80 to-green-500/80 opacity-5 hover:opacity-10 transition-opacity duration-300"></div>
+                <CardContent className="pt-6 relative z-10">
                   <h3 className="font-semibold text-slate-100 mb-2">Do you work with international clients?</h3>
                   <p className="text-slate-300 text-sm">
                     Yes! I work with clients worldwide and am comfortable with different time zones and communication
@@ -716,16 +728,19 @@ export default function ContactPage() {
                   </p>
                 </CardContent>
               </Card>
-              <Card className="faq-card bg-slate-800 border-slate-700">
-                <CardContent className="pt-6">
+              <Card className="faq-card bg-slate-800/60 backdrop-blur-sm border border-purple-500/20 shadow-lg relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-400/80 to-purple-500/80 opacity-5 hover:opacity-10 transition-opacity duration-300"></div>
+                <CardContent className="pt-6 relative z-10">
                   <h3 className="font-semibold text-slate-100 mb-2">What's your typical project timeline?</h3>
                   <p className="text-slate-300 text-sm">
-                    Let&apos;s discuss your requirements and create something amazing together.
+                    Project timelines vary based on complexity. Small projects typically take 1-2 weeks, while larger
+                    ones may take 1-3 months.
                   </p>
                 </CardContent>
               </Card>
-              <Card className="faq-card bg-slate-800 border-slate-700">
-                <CardContent className="pt-6">
+              <Card className="faq-card bg-slate-800/60 backdrop-blur-sm border border-orange-500/20 shadow-lg relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-orange-400/80 to-orange-500/80 opacity-5 hover:opacity-10 transition-opacity duration-300"></div>
+                <CardContent className="pt-6 relative z-10">
                   <h3 className="font-semibold text-slate-100 mb-2">Do you provide ongoing support?</h3>
                   <p className="text-slate-300 text-sm">
                     Yes, I offer post-project support and maintenance packages to ensure your solution continues to

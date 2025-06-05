@@ -143,12 +143,12 @@ export default function EducationPage() {
 
         window.addEventListener("mousemove", handleWindowMouseMove)
 
-        // Hover animations for cards
-        const cards = document.querySelectorAll(".education-card, .highlight-card")
-        cards.forEach((card) => {
+        // GSAP hover animations for highlight cards - Ultra smooth like about page stats
+        const highlightCards = document.querySelectorAll(".highlight-card")
+        highlightCards.forEach((card) => {
           card.addEventListener("mouseenter", () => {
             gsap.to(card, {
-              scale: 1.02,
+              scale: 1.05,
               y: -5,
               duration: 0.3,
               ease: "power2.out",
@@ -232,26 +232,29 @@ export default function EducationPage() {
               {/* BSc Education */}
               <div className="education-card md:flex items-center mb-12 relative">
                 <div className="md:w-1/2 md:pr-12 md:text-right mb-8 md:mb-0">
-                  <div className="bg-slate-800/90 p-6 rounded-lg shadow-lg border border-slate-700 hover:shadow-xl transition-shadow">
-                    <div className="flex items-center justify-end mb-4">
-                      <div>
-                        <h3 className="text-xl font-bold text-slate-100">B.Sc. in CSE</h3>
-                        <p className="text-slate-300">Varendra University Rajshahi</p>
+                  <div className="bg-slate-800/60 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-blue-500/20 bg-gradient-to-r from-blue-900/10 to-blue-800/10 relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-400/80 to-blue-500/80 opacity-5 group-hover:opacity-10 transition-opacity duration-300"></div>
+                    <div className="relative z-10">
+                      <div className="flex items-center justify-end mb-4">
+                        <div>
+                          <h3 className="text-xl font-bold text-slate-100">B.Sc. in CSE</h3>
+                          <p className="text-slate-300">Varendra University Rajshahi</p>
+                        </div>
+                        <div className="w-12 h-12 bg-blue-900/60 rounded-lg flex items-center justify-center ml-4">
+                          <GraduationCap className="h-6 w-6 text-blue-400" />
+                        </div>
                       </div>
-                      <div className="w-12 h-12 bg-blue-900/60 rounded-lg flex items-center justify-center ml-4">
-                        <GraduationCap className="h-6 w-6 text-blue-400" />
+                      <div className="bg-slate-900/40 px-4 py-2 rounded-md mb-4 inline-block">
+                        <div className="flex items-center">
+                          <Calendar className="h-4 w-4 text-blue-400 mr-2" />
+                          <p className="text-sm font-medium text-blue-400">2022 - Present</p>
+                        </div>
                       </div>
+                      <p className="text-base text-slate-200 leading-relaxed">
+                        Currently pursuing Bachelor of Science in Computer Science and Engineering, focusing on software
+                        development, algorithms, and system design.
+                      </p>
                     </div>
-                    <div className="bg-slate-900/40 px-4 py-2 rounded-md mb-4 inline-block">
-                      <div className="flex items-center">
-                        <Calendar className="h-4 w-4 text-blue-400 mr-2" />
-                        <p className="text-sm font-medium text-blue-400">2022 - Present</p>
-                      </div>
-                    </div>
-                    <p className="text-base text-slate-200 leading-relaxed">
-                      Currently pursuing Bachelor of Science in Computer Science and Engineering, focusing on software
-                      development, algorithms, and system design.
-                    </p>
                   </div>
                 </div>
                 <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 hidden md:block">
@@ -267,32 +270,35 @@ export default function EducationPage() {
                   <div className="w-6 h-6 rounded-full bg-green-500 border-4 border-slate-900"></div>
                 </div>
                 <div className="md:w-1/2 md:pl-12 mb-8 md:mb-0">
-                  <div className="bg-slate-800/90 p-6 rounded-lg shadow-lg border border-slate-700 hover:shadow-xl transition-shadow">
-                    <div className="flex items-center mb-4">
-                      <div className="w-12 h-12 bg-green-900/60 rounded-lg flex items-center justify-center mr-4">
-                        <BookOpen className="h-6 w-6 text-green-400" />
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-bold text-slate-100">HSC</h3>
-                        <p className="text-slate-300">Rajshahi Govt. School & College</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="bg-slate-900/40 px-4 py-2 rounded-md inline-block">
-                        <div className="flex items-center">
-                          <Calendar className="h-4 w-4 text-green-400 mr-2" />
-                          <p className="text-sm font-medium text-green-400">2021</p>
+                  <div className="bg-slate-800/60 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-green-500/20 bg-gradient-to-r from-green-900/10 to-green-800/10 relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-r from-green-400/80 to-green-500/80 opacity-5 group-hover:opacity-10 transition-opacity duration-300"></div>
+                    <div className="relative z-10">
+                      <div className="flex items-center mb-4">
+                        <div className="w-12 h-12 bg-green-900/60 rounded-lg flex items-center justify-center mr-4">
+                          <BookOpen className="h-6 w-6 text-green-400" />
+                        </div>
+                        <div>
+                          <h3 className="text-xl font-bold text-slate-100">HSC</h3>
+                          <p className="text-slate-300">Rajshahi Govt. School & College</p>
                         </div>
                       </div>
-                      <Badge variant="secondary" className="bg-green-900/70 text-green-200 text-sm font-medium">
-                        GPA: 4.92/5.00
-                      </Badge>
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="bg-slate-900/40 px-4 py-2 rounded-md inline-block">
+                          <div className="flex items-center">
+                            <Calendar className="h-4 w-4 text-green-400 mr-2" />
+                            <p className="text-sm font-medium text-green-400">2021</p>
+                          </div>
+                        </div>
+                        <Badge variant="secondary" className="bg-green-900/70 text-green-200 text-sm font-medium">
+                          GPA: 4.92/5.00
+                        </Badge>
+                      </div>
+                      <p className="text-sm text-slate-400 mb-3">Science Group - Rajshahi Board</p>
+                      <p className="text-base text-slate-200 leading-relaxed">
+                        Completed Higher Secondary Certificate with excellent results in Science group, building a
+                        strong foundation in mathematics and physics.
+                      </p>
                     </div>
-                    <p className="text-sm text-slate-400 mb-3">Science Group - Rajshahi Board</p>
-                    <p className="text-base text-slate-200 leading-relaxed">
-                      Completed Higher Secondary Certificate with excellent results in Science group, building a strong
-                      foundation in mathematics and physics.
-                    </p>
                   </div>
                 </div>
               </div>
@@ -300,32 +306,35 @@ export default function EducationPage() {
               {/* SSC Education */}
               <div className="education-card md:flex items-center mb-12 relative">
                 <div className="md:w-1/2 md:pr-12 md:text-right mb-8 md:mb-0">
-                  <div className="bg-slate-800/90 p-6 rounded-lg shadow-lg border border-slate-700 hover:shadow-xl transition-shadow">
-                    <div className="flex items-center justify-end mb-4">
-                      <div>
-                        <h3 className="text-xl font-bold text-slate-100">SSC</h3>
-                        <p className="text-slate-300">Rajshahi University School & College</p>
-                      </div>
-                      <div className="w-12 h-12 bg-purple-900/60 rounded-lg flex items-center justify-center ml-4">
-                        <BookOpen className="h-6 w-6 text-purple-400" />
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between mb-4">
-                      <Badge variant="secondary" className="bg-purple-900/70 text-purple-200 text-sm font-medium">
-                        GPA: 5.00/5.00
-                      </Badge>
-                      <div className="bg-slate-900/40 px-4 py-2 rounded-md inline-block">
-                        <div className="flex items-center">
-                          <Calendar className="h-4 w-4 text-purple-400 mr-2" />
-                          <p className="text-sm font-medium text-purple-400">2019</p>
+                  <div className="bg-slate-800/60 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-purple-500/20 bg-gradient-to-r from-purple-900/10 to-purple-800/10 relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-r from-purple-400/80 to-purple-500/80 opacity-5 group-hover:opacity-10 transition-opacity duration-300"></div>
+                    <div className="relative z-10">
+                      <div className="flex items-center justify-end mb-4">
+                        <div>
+                          <h3 className="text-xl font-bold text-slate-100">SSC</h3>
+                          <p className="text-slate-300">Rajshahi University School & College</p>
+                        </div>
+                        <div className="w-12 h-12 bg-purple-900/60 rounded-lg flex items-center justify-center ml-4">
+                          <BookOpen className="h-6 w-6 text-purple-400" />
                         </div>
                       </div>
+                      <div className="flex items-center justify-between mb-4">
+                        <Badge variant="secondary" className="bg-purple-900/70 text-purple-200 text-sm font-medium">
+                          GPA: 5.00/5.00
+                        </Badge>
+                        <div className="bg-slate-900/40 px-4 py-2 rounded-md inline-block">
+                          <div className="flex items-center">
+                            <Calendar className="h-4 w-4 text-purple-400 mr-2" />
+                            <p className="text-sm font-medium text-purple-400">2019</p>
+                          </div>
+                        </div>
+                      </div>
+                      <p className="text-sm text-slate-400 mb-3">Science Group - Rajshahi Board</p>
+                      <p className="text-base text-slate-200 leading-relaxed">
+                        Achieved perfect GPA in Secondary School Certificate, demonstrating consistent academic
+                        excellence and dedication to learning.
+                      </p>
                     </div>
-                    <p className="text-sm text-slate-400 mb-3">Science Group - Rajshahi Board</p>
-                    <p className="text-base text-slate-200 leading-relaxed">
-                      Achieved perfect GPA in Secondary School Certificate, demonstrating consistent academic excellence
-                      and dedication to learning.
-                    </p>
                   </div>
                 </div>
                 <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 hidden md:block">
@@ -341,32 +350,35 @@ export default function EducationPage() {
                   <div className="w-6 h-6 rounded-full bg-orange-500 border-4 border-slate-900"></div>
                 </div>
                 <div className="md:w-1/2 md:pl-12">
-                  <div className="bg-slate-800/90 p-6 rounded-lg shadow-lg border border-slate-700 hover:shadow-xl transition-shadow">
-                    <div className="flex items-center mb-4">
-                      <div className="w-12 h-12 bg-orange-900/60 rounded-lg flex items-center justify-center mr-4">
-                        <BookOpen className="h-6 w-6 text-orange-400" />
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-bold text-slate-100">JSC</h3>
-                        <p className="text-slate-300">Rajshahi University School & College</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="bg-slate-900/40 px-4 py-2 rounded-md inline-block">
-                        <div className="flex items-center">
-                          <Calendar className="h-4 w-4 text-orange-400 mr-2" />
-                          <p className="text-sm font-medium text-orange-400">2017</p>
+                  <div className="bg-slate-800/60 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-orange-500/20 bg-gradient-to-r from-orange-900/10 to-orange-800/10 relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-r from-orange-400/80 to-orange-500/80 opacity-5 group-hover:opacity-10 transition-opacity duration-300"></div>
+                    <div className="relative z-10">
+                      <div className="flex items-center mb-4">
+                        <div className="w-12 h-12 bg-orange-900/60 rounded-lg flex items-center justify-center mr-4">
+                          <BookOpen className="h-6 w-6 text-orange-400" />
+                        </div>
+                        <div>
+                          <h3 className="text-xl font-bold text-slate-100">JSC</h3>
+                          <p className="text-slate-300">Rajshahi University School & College</p>
                         </div>
                       </div>
-                      <Badge variant="secondary" className="bg-orange-900/70 text-orange-200 text-sm font-medium">
-                        GPA: 5.00/5.00
-                      </Badge>
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="bg-slate-900/40 px-4 py-2 rounded-md inline-block">
+                          <div className="flex items-center">
+                            <Calendar className="h-4 w-4 text-orange-400 mr-2" />
+                            <p className="text-sm font-medium text-orange-400">2017</p>
+                          </div>
+                        </div>
+                        <Badge variant="secondary" className="bg-orange-900/70 text-orange-200 text-sm font-medium">
+                          GPA: 5.00/5.00
+                        </Badge>
+                      </div>
+                      <p className="text-sm text-slate-400 mb-3">Rajshahi Board</p>
+                      <p className="text-base text-slate-200 leading-relaxed">
+                        Started academic journey with perfect results in Junior School Certificate, establishing a
+                        pattern of academic excellence from early education.
+                      </p>
                     </div>
-                    <p className="text-sm text-slate-400 mb-3">Rajshahi Board</p>
-                    <p className="text-base text-slate-200 leading-relaxed">
-                      Started academic journey with perfect results in Junior School Certificate, establishing a pattern
-                      of academic excellence from early education.
-                    </p>
                   </div>
                 </div>
               </div>
@@ -377,69 +389,75 @@ export default function EducationPage() {
           <div className="mt-20 max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold text-slate-100 mb-10 text-center">Academic Highlights</h2>
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="highlight-card bg-slate-800/90 p-6 rounded-lg shadow-lg border border-slate-700">
-                <div className="flex items-center mb-5">
-                  <div className="w-10 h-10 bg-blue-900/60 rounded-full flex items-center justify-center mr-3">
-                    <BookOpen className="h-5 w-5 text-blue-400" />
+              <div className="highlight-card bg-slate-800/60 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-blue-500/20 bg-gradient-to-r from-blue-900/10 to-blue-800/10 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-400/80 to-blue-500/80 opacity-5 group-hover:opacity-10 transition-opacity duration-300"></div>
+                <div className="relative z-10">
+                  <div className="flex items-center mb-5">
+                    <div className="w-10 h-10 bg-blue-900/60 rounded-full flex items-center justify-center mr-3">
+                      <BookOpen className="h-5 w-5 text-blue-400" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-slate-100">Key Subjects</h3>
                   </div>
-                  <h3 className="text-xl font-semibold text-slate-100">Key Subjects</h3>
+                  <ul className="space-y-2 text-slate-200 text-base">
+                    <li className="flex items-start">
+                      <span className="text-blue-400 mr-2">•</span>
+                      <span>Data Structures and Algorithms</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-blue-400 mr-2">•</span>
+                      <span>Database Management Systems</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-blue-400 mr-2">•</span>
+                      <span>Computer Networks</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-blue-400 mr-2">•</span>
+                      <span>Software Engineering</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-blue-400 mr-2">•</span>
+                      <span>Web Development</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-blue-400 mr-2">•</span>
+                      <span>System Administration</span>
+                    </li>
+                  </ul>
                 </div>
-                <ul className="space-y-2 text-slate-200 text-base">
-                  <li className="flex items-start">
-                    <span className="text-blue-400 mr-2">•</span>
-                    <span>Data Structures and Algorithms</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-blue-400 mr-2">•</span>
-                    <span>Database Management Systems</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-blue-400 mr-2">•</span>
-                    <span>Computer Networks</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-blue-400 mr-2">•</span>
-                    <span>Software Engineering</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-blue-400 mr-2">•</span>
-                    <span>Web Development</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-blue-400 mr-2">•</span>
-                    <span>System Administration</span>
-                  </li>
-                </ul>
               </div>
-              <div className="highlight-card bg-slate-800/90 p-6 rounded-lg shadow-lg border border-slate-700">
-                <div className="flex items-center mb-5">
-                  <div className="w-10 h-10 bg-green-900/60 rounded-full flex items-center justify-center mr-3">
-                    <Award className="h-5 w-5 text-green-400" />
+              <div className="highlight-card bg-slate-800/60 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-green-500/20 bg-gradient-to-r from-green-900/10 to-green-800/10 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-green-400/80 to-green-500/80 opacity-5 group-hover:opacity-10 transition-opacity duration-300"></div>
+                <div className="relative z-10">
+                  <div className="flex items-center mb-5">
+                    <div className="w-10 h-10 bg-green-900/60 rounded-full flex items-center justify-center mr-3">
+                      <Award className="h-5 w-5 text-green-400" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-slate-100">Achievements</h3>
                   </div>
-                  <h3 className="text-xl font-semibold text-slate-100">Achievements</h3>
+                  <ul className="space-y-2 text-slate-200 text-base">
+                    <li className="flex items-start">
+                      <span className="text-green-400 mr-2">•</span>
+                      <span>Consistent academic excellence</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-green-400 mr-2">•</span>
+                      <span>Perfect GPA in SSC and JSC</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-green-400 mr-2">•</span>
+                      <span>Strong foundation in STEM subjects</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-green-400 mr-2">•</span>
+                      <span>Active participation in tech projects</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-green-400 mr-2">•</span>
+                      <span>Practical application of theoretical knowledge</span>
+                    </li>
+                  </ul>
                 </div>
-                <ul className="space-y-2 text-slate-200 text-base">
-                  <li className="flex items-start">
-                    <span className="text-green-400 mr-2">•</span>
-                    <span>Consistent academic excellence</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-green-400 mr-2">•</span>
-                    <span>Perfect GPA in SSC and JSC</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-green-400 mr-2">•</span>
-                    <span>Strong foundation in STEM subjects</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-green-400 mr-2">•</span>
-                    <span>Active participation in tech projects</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-green-400 mr-2">•</span>
-                    <span>Practical application of theoretical knowledge</span>
-                  </li>
-                </ul>
               </div>
             </div>
           </div>

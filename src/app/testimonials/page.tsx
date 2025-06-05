@@ -256,7 +256,7 @@ export default function TestimonialsPage() {
 
           {/* Featured Testimonial */}
           <div className="max-w-4xl mx-auto mb-16">
-            <Card className="bg-gradient-to-r from-blue-900/50 to-purple-900/50 border-2 border-blue-500 hover:shadow-xl transition-shadow">
+            <Card className="bg-gradient-to-r from-blue-900/50 to-purple-900/50 border-2 border-blue-500/20 hover:shadow-xl transition-shadow">
               <CardContent className="pt-8">
                 <div className="text-center">
                   <Quote className="h-12 w-12 text-blue-400 mx-auto mb-6" />
@@ -283,7 +283,7 @@ export default function TestimonialsPage() {
           {/* Other Testimonials */}
           <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 mb-16">
             {testimonials.slice(1).map((testimonial, index) => (
-              <Card key={index} className="hover:shadow-xl transition-shadow bg-slate-800 border-slate-700">
+              <Card key={index} className="hover:shadow-xl transition-shadow bg-slate-800 border-purple-500/20">
                 <CardContent className="pt-6">
                   <div className="flex items-start gap-4 mb-4">
                     <TestimonialImage testimonial={testimonial} />
@@ -315,15 +315,15 @@ export default function TestimonialsPage() {
           {/* Stats Section */}
           <div className="max-w-4xl mx-auto mb-16">
             <div className="grid md:grid-cols-3 gap-8 text-center">
-              <div className="bg-slate-800 p-6 rounded-lg shadow-lg border border-slate-700">
+              <div className="bg-slate-800 p-6 rounded-lg shadow-lg border border-blue-500/20">
                 <div className="text-3xl font-bold text-blue-400 mb-2">50+</div>
                 <div className="text-slate-300">Happy Clients</div>
               </div>
-              <div className="bg-slate-800 p-6 rounded-lg shadow-lg border border-slate-700">
+              <div className="bg-slate-800 p-6 rounded-lg shadow-lg border border-green-500/20">
                 <div className="text-3xl font-bold text-green-400 mb-2">100%</div>
                 <div className="text-slate-300">Project Success Rate</div>
               </div>
-              <div className="bg-slate-800 p-6 rounded-lg shadow-lg border border-slate-700">
+              <div className="bg-slate-800 p-6 rounded-lg shadow-lg border border-purple-500/20">
                 <div className="text-3xl font-bold text-purple-400 mb-2">3+</div>
                 <div className="text-slate-300">Years Experience</div>
               </div>
@@ -361,7 +361,7 @@ export default function TestimonialsPage() {
         </div>
       </section>
 
-      <Footer />
+      {/*<Footer />*/}
     </div>
   )
 }
