@@ -20,24 +20,102 @@ export default function SkillsPage() {
           rotation: () => gsap.utils.random(-180, 180),
         })
 
-        // Create timeline and add the shaky entrance effect for floating elements
-        const tl = gsap.timeline({ delay: 0.5 })
-
-        tl.to(".floating-element", {
-          opacity: 0.7,
-          scale: 1,
-          rotation: 0,
-          duration: 1.2,
-          stagger: {
-            amount: 1,
-            from: "random",
-            ease: "power2.out",
-          },
-          ease: "elastic.out(1, 0.3)",
+        // Set initial states for skill cards
+        gsap.set(".skills-card", {
+          opacity: 0,
+          y: 50,
+          scale: 0.8,
+          rotationY: 15,
+          transformPerspective: 1000,
         })
 
-        // Continuous floating animations (start after entrance)
-        tl.call(() => {
+        // Set initial states for other page content
+        gsap.set([".proficiency-section", ".learning-section"], {
+          opacity: 0,
+          y: 30,
+        })
+
+        // Create main timeline for sequential loading
+        const mainTimeline = gsap.timeline()
+
+        // STEP 1: Load skill cards one by one (0.5s delay to let page settle)
+        mainTimeline
+          .to(".skills-card", {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            rotationY: 0,
+            duration: 0.8,
+            stagger: {
+              amount: 1.5, // Total time to stagger all cards
+              from: "start",
+              ease: "power2.out",
+            },
+            ease: "back.out(1.4)",
+            delay: 0.5,
+          })
+
+          // STEP 2: After all skill cards are loaded, load proficiency section AND progress bars together
+          .to(
+            ".proficiency-section",
+            {
+              opacity: 1,
+              y: 0,
+              duration: 1,
+              ease: "power3.out",
+              onStart: () => {
+                // Start progress bar animation immediately when proficiency section starts loading
+                const progressBars = document.querySelectorAll(".progress-bar")
+                progressBars.forEach((bar, index) => {
+                  const percentage = bar.getAttribute("data-percentage")
+                  gsap.fromTo(
+                    bar,
+                    { width: "0%" },
+                    {
+                      width: `${percentage}%`,
+                      duration: 1.5,
+                      delay: index * 0.1, // Reduced delay between bars
+                      ease: "power2.out",
+                    },
+                  )
+                })
+              },
+            },
+            "+=0.3",
+          ) // Small delay after skill cards finish
+
+          // STEP 3: Load learning section after proficiency section completes
+          .to(
+            ".learning-section",
+            {
+              opacity: 1,
+              y: 0,
+              duration: 1,
+              ease: "power3.out",
+            },
+            "+=0.2", // Small delay after proficiency section
+          )
+
+          // STEP 4: Finally load floating elements
+          .to(
+            ".floating-element",
+            {
+              opacity: 0.7,
+              scale: 1,
+              rotation: 0,
+              duration: 1.2,
+              stagger: {
+                amount: 1,
+                from: "random",
+                ease: "power2.out",
+              },
+              ease: "elastic.out(1, 0.3)",
+            },
+            "-=0.5",
+          )
+
+        // Start continuous floating animations after everything is loaded
+        mainTimeline.call(() => {
           gsap.to(".floating-1", {
             y: -30,
             x: 15,
@@ -72,7 +150,7 @@ export default function SkillsPage() {
           })
         })
 
-        // Parallax effect for floating elements
+        // Rest of the existing code for mouse move, hover animations, etc...
         const handleWindowMouseMove = (e: MouseEvent) => {
           const x = (e.clientX / window.innerWidth - 0.5) * 2
           const y = (e.clientY / window.innerHeight - 0.5) * 2
@@ -145,7 +223,58 @@ export default function SkillsPage() {
           })
         })
 
-        // Animate progress bars on scroll/load
+        // Ultra-smooth hover animations for skill category cards with inner box color fills
+        const skillCards = document.querySelectorAll(".skills-card")
+        skillCards.forEach((card, index) => {
+          // Create an inner overlay element for each card if it doesn't exist
+          let innerOverlay = card.querySelector(".inner-color-fill") as HTMLElement
+          if (!innerOverlay) {
+            innerOverlay = document.createElement("div") as HTMLElement
+            innerOverlay.className = "inner-color-fill absolute inset-0 rounded-xl opacity-0 pointer-events-none"
+
+            // Get the category color from the skillCategories array
+            const category = skillCategories[index]
+            innerOverlay.style.background = `linear-gradient(135deg, ${category.color.replace("from-", "").replace("/80", "").replace(" to-", ", ").replace("/80", "")})`
+            innerOverlay.style.opacity = "0"
+
+            // Insert the overlay as the first child (behind content)
+            card.insertBefore(innerOverlay, card.firstChild)
+          }
+
+          card.addEventListener("mouseenter", () => {
+            gsap.to(card, {
+              scale: 1.05,
+              y: -5,
+              duration: 0.3,
+              ease: "power2.out",
+            })
+
+            // Animate the inner color fill
+            gsap.to(innerOverlay, {
+              opacity: 0.15,
+              duration: 0.4,
+              ease: "power2.out",
+            })
+          })
+
+          card.addEventListener("mouseleave", () => {
+            gsap.to(card, {
+              scale: 1,
+              y: 0,
+              duration: 0.3,
+              ease: "power2.out",
+            })
+
+            // Fade out the inner color fill
+            gsap.to(innerOverlay, {
+              opacity: 0,
+              duration: 0.4,
+              ease: "power2.out",
+            })
+          })
+        })
+
+        // Animate progress bars after proficiency section loads
         const animateProgressBars = () => {
           const progressBars = document.querySelectorAll(".progress-bar")
           progressBars.forEach((bar, index) => {
@@ -163,8 +292,8 @@ export default function SkillsPage() {
           })
         }
 
-        // Trigger progress bar animation after a delay
-        setTimeout(animateProgressBars, 1000)
+        // Trigger progress bar animation when proficiency section becomes visible
+        // Trigger progress bar animation right when proficiency section becomes visible
 
         return () => {
           window.removeEventListener("mousemove", handleWindowMouseMove)
@@ -239,46 +368,46 @@ export default function SkillsPage() {
       skill: "NextJS & Frontend Development",
       level: 95,
       icon: Globe,
-      color: "from-orange-400/80 to-orange-500/80",
-      bgColor: "bg-orange-900/10",
-      borderColor: "border-orange-500/20",
-      textColor: "text-orange-300",
-    },
-    {
-      skill: "PHP & Backend Development",
-      level: 90,
-      icon: Code,
-      color: "from-slate-400 to-slate-500",
-      bgColor: "bg-slate-800/40",
-      borderColor: "border-slate-600/40",
-      textColor: "text-slate-300",
-    },
-    {
-      skill: "Database Management",
-      level: 87,
-      icon: Database,
-      color: "from-pink-400/80 to-pink-500/80",
-      bgColor: "bg-pink-900/10",
-      borderColor: "border-pink-500/20",
-      textColor: "text-pink-300",
-    },
-    {
-      skill: "Network Engineering (Mikrotik)",
-      level: 82,
-      icon: Network,
       color: "from-blue-400/80 to-blue-500/80",
       bgColor: "bg-blue-900/10",
       borderColor: "border-blue-500/20",
       textColor: "text-blue-300",
     },
     {
-      skill: "Linux Server Administration",
-      level: 80,
-      icon: Server,
+      skill: "PHP & Backend Development",
+      level: 87,
+      icon: Code,
+      color: "from-green-400/80 to-green-500/80",
+      bgColor: "bg-green-800/40",
+      borderColor: "border-green-600/40",
+      textColor: "text-green-300",
+    },
+    {
+      skill: "Database Management",
+      level: 82,
+      icon: Database,
       color: "from-purple-400/80 to-purple-500/80",
       bgColor: "bg-purple-900/10",
       borderColor: "border-purple-500/20",
       textColor: "text-purple-300",
+    },
+    {
+      skill: "Network Engineering (Mikrotik)",
+      level: 80,
+      icon: Network,
+      color: "from-orange-400/80 to-orange-500/80",
+      bgColor: "bg-orange-900/10",
+      borderColor: "border-orange-500/20",
+      textColor: "text-orange-300",
+    },
+    {
+      skill: "Linux Server Administration",
+      level: 80,
+      icon: Server,
+      color: "from-red-400/80 to-red-500/80",
+      bgColor: "bg-red-900/10",
+      borderColor: "border-red-500/20",
+      textColor: "text-red-300",
     },
     {
       skill: "System Security & Monitoring",
@@ -405,7 +534,7 @@ export default function SkillsPage() {
           </div>
 
           {/* Enhanced Proficiency Levels */}
-          <div className="max-w-5xl mx-auto">
+          <div className="proficiency-section max-w-5xl mx-auto">
             <h2 className="text-3xl font-bold text-slate-100 mb-12 text-center">Proficiency Levels</h2>
             <div className="grid md:grid-cols-2 gap-8">
               {proficiencyData.map((item, index) => {
@@ -491,7 +620,7 @@ export default function SkillsPage() {
           </div>
 
           {/* Enhanced Continuous Learning Section */}
-          <div className="mt-16 max-w-4xl mx-auto">
+          <div className="learning-section mt-16 max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold text-slate-100 mb-12 text-center">Continuous Learning</h2>
             <div className="grid md:grid-cols-2 gap-8">
               {learningData.map((section, index) => {

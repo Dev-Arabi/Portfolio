@@ -368,21 +368,21 @@ export default function ExperiencePage() {
           <div className="mt-16 max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold text-white mb-8 text-center">Professional Skills Summary</h2>
             <div className="grid md:grid-cols-3 gap-8">
-              <div className="skills-card bg-slate-800 p-6 rounded-lg shadow-lg text-center border border-slate-700">
+              <div className="skills-card bg-slate-800/60 backdrop-blur-sm p-6 rounded-lg shadow-lg text-center border border-blue-500/20 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300 relative overflow-hidden">
                 <div className="w-16 h-16 bg-blue-900/50 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Code className="h-8 w-8 text-blue-400" />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-2">Backend Development</h3>
                 <p className="text-white">3+ years of experience in building scalable backend systems</p>
               </div>
-              <div className="skills-card bg-slate-800 p-6 rounded-lg shadow-lg text-center border border-slate-700">
+              <div className="skills-card bg-slate-800/60 backdrop-blur-sm p-6 rounded-lg shadow-lg text-center border border-green-500/20 hover:shadow-xl hover:shadow-green-500/10 transition-all duration-300 relative overflow-hidden">
                 <div className="w-16 h-16 bg-green-900/50 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Network className="h-8 w-8 text-green-400" />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-2">Network Engineering</h3>
                 <p className="text-white">Expert in network design, security, and optimization</p>
               </div>
-              <div className="skills-card bg-slate-800 p-6 rounded-lg shadow-lg text-center border border-slate-700">
+              <div className="skills-card bg-slate-800/60 backdrop-blur-sm p-6 rounded-lg shadow-lg text-center border border-purple-500/20 hover:shadow-xl hover:shadow-purple-500/10 transition-all duration-300 relative overflow-hidden">
                 <div className="w-16 h-16 bg-purple-900/50 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Server className="h-8 w-8 text-purple-400" />
                 </div>

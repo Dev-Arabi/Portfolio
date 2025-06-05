@@ -291,12 +291,12 @@ export default function ServicesPage() {
 
                     {/* Description - Fixed height area */}
                     <div className="h-20 flex items-center justify-center mb-6">
-                      <p className="text-slate-300 text-sm leading-relaxed">{service.description}</p>
+                      <p className="text-slate-300 text-sm leading-relaxed text-center">{service.description}</p>
                     </div>
 
                     {/* What's Included - Fixed position */}
                     <div className="mb-6">
-                      <h4 className="font-semibold text-slate-100 mb-3">What's Included:</h4>
+                      <h4 className="font-semibold text-slate-100 mb-3 text-center">What's Included:</h4>
                       <div className="flex flex-wrap gap-2 justify-center min-h-[80px] items-start">
                         {service.features.map((feature, featureIndex) => (
                           <Badge
@@ -312,7 +312,7 @@ export default function ServicesPage() {
 
                     {/* Price and Button - Always at bottom */}
                     <div className="border-t border-slate-700 pt-4 mt-auto">
-                      <p className="text-lg font-semibold text-slate-100 mb-4">{service.price}</p>
+                      <p className="text-lg font-semibold text-slate-100 mb-4 text-center">{service.price}</p>
                       <Link href="/contact">
                         <Button className="w-full group-hover:bg-slate-700 transition-colors bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
                           Get Started
