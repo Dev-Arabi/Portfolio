@@ -6,6 +6,17 @@ body {
   color: #e2e8f0;
 }
 
+/* Prevent scroll restoration */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Force scroll position reset */
+html,
+body {
+  overflow-x: hidden;
+}
+
 /* Custom scrollbar for dark theme */
 ::-webkit-scrollbar {
   width: 8px;

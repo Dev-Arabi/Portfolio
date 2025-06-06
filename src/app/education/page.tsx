@@ -165,6 +165,28 @@ export default function EducationPage() {
           })
         })
 
+        // GSAP hover animations for education cards - Ultra smooth like other pages
+        const educationCards = document.querySelectorAll(".education-card")
+        educationCards.forEach((card) => {
+          card.addEventListener("mouseenter", () => {
+            gsap.to(card, {
+              scale: 1.02,
+              y: -3,
+              duration: 0.3,
+              ease: "power2.out",
+            })
+          })
+
+          card.addEventListener("mouseleave", () => {
+            gsap.to(card, {
+              scale: 1,
+              y: 0,
+              duration: 0.3,
+              ease: "power2.out",
+            })
+          })
+        })
+
         return () => {
           window.removeEventListener("mousemove", handleWindowMouseMove)
         }

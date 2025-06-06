@@ -13,9 +13,11 @@ function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMounted, setIsMounted] = useState(false)
   const pathname = usePathname()
+
+  // Typewriter effect for the name
   const typewriterText = useTypewriter({
     text: "Saif Arabi",
-    speed: 150,
+    speed: 100,
     deleteSpeed: 100,
     delayBetween: 3000,
   })
@@ -51,58 +53,73 @@ function Navigation() {
   return (
     <div
       className={cn(
-        "fixed left-0 right-0 z-50 flex justify-center px-4 transition-all duration-500 ease-in-out",
+        "fixed left-0 right-0 z-50 flex justify-center px-4",
         isMounted && isScrolled ? "top-0" : "top-6",
+        isMounted ? "transition-all duration-500 ease-in-out" : "",
       )}
     >
-      {/* Main Navigation Bar with Enhanced Blur and Transparency */}
+      {/* Main Navigation Bar */}
       <nav
         className={cn(
-          "shadow-2xl px-4 md:px-6 py-3 w-full max-w-7xl transition-all duration-500 ease-in-out relative overflow-hidden",
-          // Enhanced blur and transparency effects with proper rounded corners
+          "px-4 md:px-6 py-3 w-full max-w-7xl relative overflow-hidden backdrop-brightness-110 supports-[backdrop-filter]:bg-slate-900/50",
           isMounted && isScrolled
             ? "bg-slate-900/70 backdrop-blur-3xl border border-slate-600/40 shadow-2xl rounded-none md:rounded-b-2xl backdrop-saturate-150"
             : "bg-slate-900/60 backdrop-blur-2xl border border-slate-700/30 shadow-xl rounded-2xl backdrop-saturate-125",
-          // Additional glass morphism effects
-          "backdrop-brightness-110 supports-[backdrop-filter]:bg-slate-900/50",
+          isMounted ? "transition-all duration-500 ease-in-out" : "",
         )}
-        style={{
-          backdropFilter:
-            isMounted && isScrolled
-              ? "blur(24px) saturate(150%) brightness(110%)"
-              : "blur(16px) saturate(125%) brightness(105%)",
-        }}
+        style={
+          isMounted
+            ? {
+                backdropFilter: isScrolled
+                  ? "blur(24px) saturate(150%) brightness(110%)"
+                  : "blur(16px) saturate(125%) brightness(105%)",
+              }
+            : undefined
+        }
       >
-        {/* Subtle gradient overlay for extra depth - Fixed rounded corners */}
-        <div
-          className={cn(
-            "absolute inset-0 transition-opacity duration-500",
-            isMounted && isScrolled
-              ? "bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-pink-500/5 opacity-100 rounded-none md:rounded-b-2xl"
-              : "bg-gradient-to-r from-blue-500/3 via-purple-500/3 to-pink-500/3 opacity-70 rounded-2xl",
-          )}
-        />
+        {/* Gradient overlay */}
+        {isMounted && (
+          <div
+            className={cn(
+              "absolute inset-0 transition-opacity duration-500",
+              isScrolled
+                ? "bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-pink-500/5 opacity-100 rounded-none md:rounded-b-2xl"
+                : "bg-gradient-to-r from-blue-500/3 via-purple-500/3 to-pink-500/3 opacity-70 rounded-2xl",
+            )}
+          />
+        )}
 
         <div className="flex items-center justify-between w-full relative z-10">
           <div className="flex items-center gap-3">
-            {/* Stylized First Letter with Enhanced Glass Effect */}
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-500/80 to-purple-600/80 backdrop-blur-sm rounded-lg flex items-center justify-center shadow-lg animate-spin-pause border border-white/10">
+            {/* Spinning Logo */}
+            <div
+              className={cn(
+                "w-10 h-10 bg-gradient-to-br from-blue-500/80 to-purple-600/80 backdrop-blur-sm rounded-lg flex items-center justify-center shadow-lg border border-white/10",
+                isMounted && "animate-spin-pause",
+              )}
+            >
               <span className="text-white font-bold text-lg drop-shadow-sm">S</span>
             </div>
 
-            {/* Portfolio Text with Enhanced Contrast */}
+            {/* Brand Text with Typewriter */}
             <Link
               href="/"
               className="text-xl font-bold text-white hover:text-blue-400 transition-colors duration-300 whitespace-nowrap flex items-center drop-shadow-sm"
             >
               <span className="min-w-[120px]">
-                {typewriterText}
-                <span className="animate-pulse text-blue-400">|</span>
+                {isMounted ? (
+                  <>
+                    {typewriterText}
+                    <span className="animate-pulse text-blue-400">|</span>
+                  </>
+                ) : (
+                  "Saif Arabi"
+                )}
               </span>
             </Link>
           </div>
 
-          {/* Desktop Menu - SIMPLIFIED for visibility */}
+          {/* Desktop Menu */}
           <div className="hidden lg:flex items-center">
             {navItems.map((item) => (
               <Link
@@ -120,7 +137,7 @@ function Navigation() {
             ))}
           </div>
 
-          {/* Mobile Menu Button - SIMPLIFIED */}
+          {/* Mobile Menu Button */}
           <Button
             variant="ghost"
             size="icon"
@@ -133,15 +150,9 @@ function Navigation() {
         </div>
       </nav>
 
-      {/* Mobile Dropdown - SIMPLIFIED for visibility */}
+      {/* Mobile Dropdown */}
       {isOpen && (
-        <div
-          className={cn(
-            "absolute top-full mt-3 w-11/12 max-w-sm rounded-2xl shadow-2xl p-4 lg:hidden animate-in slide-in-from-top-2 duration-300 overflow-hidden",
-            "backdrop-blur-3xl",
-            "bg-slate-900/80 border border-slate-700/50",
-          )}
-        >
+        <div className="absolute top-full mt-3 w-11/12 max-w-sm rounded-2xl shadow-2xl p-4 lg:hidden animate-in slide-in-from-top-2 duration-300 overflow-hidden backdrop-blur-3xl bg-slate-900/80 border border-slate-700/50">
           {/* Gradient overlay for mobile dropdown */}
           <div className="absolute inset-0 bg-gradient-to-r from-blue-500/3 via-purple-500/3 to-pink-500/3 opacity-70 rounded-2xl" />
 
